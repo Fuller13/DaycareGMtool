@@ -11,8 +11,8 @@ function loadInputs() {
 // Hope/Fear Counters
 let hopeCount = 0, fearCount = 0;
 function incrementCounter(type) {
-  if (type === 'hope' && hopeCount < 5) hopeCount++;
-  if (type === 'fear' && fearCount < 12) fearCount++;
+  if (type === 'hope' && hopeCount < 50) hopeCount++;
+  if (type === 'fear' && fearCount < 120) fearCount++;
   updateCounterDisplay(type);
   localStorage.setItem(`${type}Count`, type === 'hope' ? hopeCount : fearCount);
 }
