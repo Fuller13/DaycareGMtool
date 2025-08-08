@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Daggerheart Digital GM Tool</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Barlow&display=swap" rel="stylesheet"> <!-- For nav fonts -->
   <style>
     :root {
       --dh-color-dark-blue: #0a0f21;
@@ -18,25 +17,6 @@
       --dh-color-blue: #2878be;
       --dh-color-off-white: #F2F3F4;
       --dh-color-gray: #d8d8d6;
-      --top-nav-button-color: white;
-      --top-nav-button-hover-color: #22b8cf;
-      --breadcrumbs-bg: unset;
-      --breadcrumbs-font-color: rgb(191, 191, 191);
-      --breadcrumbs-separator-color: rgb(191, 191, 191);
-      --breadcrumbs-link-hover: rgb(191, 191, 191);
-      --breadcrumbs-location-color: rgb(191, 191, 191);
-      --breadcrumbs-font: "Eveleth-Clean";
-      --breadcrumbs-separator-font: "Eveleth-Clean";
-      --breadcrumbs-location-font: "Eveleth-Clean";
-      --h1-font: Eveleth-Thin;
-      --h2-font: Eveleth-Clean;
-      --h3-font: Eveleth-Clean;
-      --h4-font: Questa-Sans;
-      --p-font: Questa-Light;
-      --p-font-em: Questa-Italic;
-      --p-font-bold: Questa-Bold;
-      --p-font-em-bold: Questa-EmBold;
-      --p-tip-font: Questa-EmSlab;
       --dh-color-mustard: #927c3e;
       --dh-color-pale-mustard: #ece7da;
       --dh-color-vibrant-mustard: #dab65d;
@@ -45,7 +25,7 @@
       --dh-color-faded: #f0f1eb;
       --dh-color-chocolate: #241e1d;
       --dh-color-clay: #ab5b2c;
-      --dh-color-pale-clay: #f6ede5;
+      --dh-color-pale-clay: #f6ede5; /* Fixed invalid hex color */
       --dh-color-blood: #9b2a29;
       --dh-color-light-teal: #376771;
       --dh-color-purple-book: #6f3e83;
@@ -57,6 +37,9 @@
       --font-size-3: calc(var(--font-size-2) * var(--font-scale));
       --font-size-4: calc(var(--font-size-3) * var(--font-scale));
       --font-size-5: calc(var(--font-size-4) * var(--font-scale));
+      --top-nav-button-color: white;
+      --top-nav-button-hover-color: #22b8cf;
+      --top-nav-dropdown-arrow-color: white;
       --top-nav-button-font: 'Barlow';
       --top-nav-button-font-size: 16px;
       --top-nav-bottom-border-size: 0px;
@@ -76,13 +59,6 @@
       --primary-2: #f1f3f5;
       --secondary: #000;
       --secondary-2: #111;
-      --selection: var(--cyan);
-      --text-base: #000;
-      --text-primary: #000;
-      --text-secondary: #fff;
-      --hover: rgba(0, 0, 0, .075);
-      --hover-1: rgba(0, 0, 0, .15);
-      --hover-2: rgba(0, 0, 0, .25);
       --cyan: #22b8cf;
       --green: #37b679;
       --red: #da3c3c;
@@ -104,49 +80,41 @@
       --accent-8: #111;
       --accent-9: #000;
       --font-sans: -apple-system, system-ui, BlinkMacSystemFont, "Helvetica Neue", "Helvetica", sans-serif;
-      --sheet-mobile-header-top: 55px;
-      --sheet-mobile-content-top: 105px;
+      --sheet-mobile-header-top: 95px;
+      --sheet-mobile-content-top: 120px;
       --app-height: 100%;
     }
-    html {
-      height: 100%;
-      box-sizing: border-box;
-      touch-action: manipulation;
-      text-rendering: optimizeLegibility;
+    body {
+      background-color: #1a1a1a;
+      color: rgb(255, 255, 255);
+      font-family: 'Roboto', sans-serif;
+      font-weight: 400;
+      line-height: 1.5;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-      background-color: rgb(32, 32, 32);
-      font-family: var(--font-sans);
-      color: var(--text-primary);
-      overscroll-behavior-x: none;
-    }
-    body {
       box-sizing: border-box;
-      font-weight: 500;
-      line-height: 1.5;
+      text-rendering: optimizeLegibility;
       height: 100vh;
-      height: var(--app-height);
-      margin: 0;
-      color: rgb(255, 255, 255);
-      font-size: 12px;
-      letter-spacing: 0.00938em;
-      background-color: rgba(32, 32, 32, 0.95);
+      background: linear-gradient(180deg, var(--dh-color-purple-light) 0%, var(--dh-color-blue) 100%);
     }
     .container {
       display: flex;
       gap: 20px;
     }
     .sidebar {
-      width: 220px;
-      background-color: var(--dh-color-purple-light);
+      width: 200px;
+      background-color: #2a2a3a;
       padding: 15px;
       border-radius: 8px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
       display: flex;
       flex-direction: column;
       gap: 10px;
-      position: sticky;
-      top: 20px;
     }
     .main-content {
       flex: 1;
@@ -162,15 +130,16 @@
       border-radius: 6px;
       margin-bottom: 15px;
       box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+      border-bottom: 1px solid var(--dh-color-gold);
     }
     .core-panel h2 {
-      color: var(--dh-color-gold);
+      color: #4a148c;
       margin: 0 0 10px 0;
       font-size: 18px;
     }
     .toggle-panel {
       display: none;
-      position: absolute;
+      position: fixed;
       top: 20px;
       right: 20px;
       width: 350px;
@@ -180,30 +149,33 @@
       padding: 15px;
       border-radius: 8px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
-      z-index: 10;
-      border: 1px solid var(--dh-color-purple-light);
+      z-index: 1200;
+      border: 1px solid #4a148c;
+      background-image: linear-gradient(rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.15));
     }
     .toggle-panel.active {
       display: block;
     }
     .toggle-button {
-      background-color: var(--dh-color-purple-light);
-      color: #ffffff;
+      background: linear-gradient(180deg, var(--dh-color-purple-light) 0%, var(--dh-color-blue) 100%);
+      color: var(--top-nav-button-color);
       border: none;
       padding: 10px;
       border-radius: 4px;
       cursor: pointer;
       font-weight: bold;
+      font-family: var(--top-nav-button-font);
+      font-size: var(--top-nav-button-font-size);
       transition: background-color 0.3s;
     }
     .toggle-button:hover {
-      background-color: var(--dh-color-purple);
+      background-color: var(--top-nav-button-hover-color);
     }
     .counter, .dice-roller, .timer, .action-rolls, .adversary-tracker {
       margin-bottom: 10px;
     }
     .counter button, .dice-roller button, .timer button {
-      background-color: #0288d1;
+      background-color: var(--dh-color-blue);
       color: #ffffff;
       border: none;
       padding: 6px 12px;
@@ -213,7 +185,7 @@
       transition: background-color 0.3s;
     }
     .counter button:hover, .dice-roller button:hover, .timer button:hover {
-      background-color: #039be5;
+      background-color: var(--top-nav-button-hover-color);
     }
     .adversary {
       background-color: #4a4a5a;
@@ -227,7 +199,7 @@
     .adversary input, .adversary textarea {
       background-color: #5a5a6a;
       color: #ffffff;
-      border: 1px solid var(--dh-color-purple-light);
+      border: 1px solid #4a148c;
       padding: 6px;
       border-radius: 4px;
       font-size: 14px;
@@ -238,7 +210,7 @@
     input, textarea {
       background-color: #4a4a5a;
       color: #ffffff;
-      border: 1px solid var(--dh-color-purple-light);
+      border: 1px solid #4a148c;
       padding: 8px;
       border-radius: 4px;
       width: 100%;
@@ -250,7 +222,7 @@
       margin: 10px 0;
     }
     table, th, td {
-      border: 1px solid var(--dh-color-purple-light);
+      border: 1px solid #4a148c;
     }
     th, td {
       padding: 8px;
@@ -258,41 +230,57 @@
     }
     th {
       background-color: #3a3a4a;
-      color: var(--dh-color-gold);
-    }
-    .drawer-container .drawer-header {
-      max-height: unset;
-      height: 100px;
-      padding-left: 16px;
-      padding-right: 16px;
-      padding-bottom: 8px;
-      border-bottom: 1px solid var(--dh-color-gold);
-      position: sticky;
-      top: 0px;
-      z-index: 1999;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      background: linear-gradient(180deg, var(--dh-color-purple-light) 0%, var(--dh-color-blue) 100%);
+      color: #4a148c;
     }
     ::-webkit-scrollbar {
       display: none;
     }
+    .disclaimer {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #3a3a4a;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+      z-index: 2000;
+      text-align: center;
+      max-width: 500px;
+    }
+    .disclaimer button {
+      background-color: var(--dh-color-blue);
+      color: #ffffff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .disclaimer button:hover {
+      background-color: var(--top-nav-button-hover-color);
+    }
   </style>
 </head>
 <body>
+  <div class="disclaimer" id="disclaimer">
+    <p>Disclaimer: All content and rights belong to Darrington Press. This is simply a tool made for GMs. All rights remain with the game's creators.</p>
+    <button onclick="document.getElementById('disclaimer').style.display='none'">Close</button>
+  </div>
   <div class="container">
     <div class="sidebar">
-      <h2 style="color: var(--dh-color-gold); font-size: 20px;">Daggerheart GM Tool</h2>
-      <button class="toggle-button" onclick="togglePanel('gm-panel')">GM</button>
-      <button class="toggle-button" onclick="togglePanel('rolls-panel')">Rolls</button>
-      <button class="toggle-button" onclick="togglePanel('character-panel')">Character</button>
+      <h2 style="color: #4a148c; font-size: 20px;">Daggerheart GM Tool</h2>
+      <button class="toggle-button" onclick="togglePanel('gm-panel')">GM (Moves, Principles, Best Practices)</button>
+      <button class="toggle-button" onclick="togglePanel('rolls-panel')">Rolls (Action, Reaction, Attack)</button>
+      <button class="toggle-button" onclick="togglePanel('character-panel')">Character (Evasion, HP, Thresholds, Armor, Stress)</button>
       <button class="toggle-button" onclick="togglePanel('downtime-panel')">Downtime</button>
-      <button class="toggle-button" onclick="togglePanel('group-panel')">Group</button>
-      <button class="toggle-button" onclick="togglePanel('conditions-panel')">Conditions</button>
-      <button class="toggle-button" onclick="togglePanel('death-moves-panel')">Death Moves</button>
-      <button class="toggle-button" onclick="togglePanel('adversaries-panel')">Adversaries</button>
-      <button class="toggle-button" onclick="togglePanel('hope-fear-panel')">Hope/Fear</button>
+      <button class="toggle-button" onclick="togglePanel('group-panel')">Group (Actions, Helping, Tag Team)</button>
+      <button class="toggle-button" onclick="togglePanel('conditions-panel')">Conditions (Vulnerable, Restrained, Hidden, Temporary)</button>
+      <button class="toggle-button" onclick="togglePanel('death-moves-panel')">Death Moves (Blaze of Glory, Avoid Death, Risk It All)</button>
+      <button class="toggle-button" onclick="togglePanel('adversaries-panel')">Adversaries (Types, Improvising Table)</button>
+      <button class="toggle-button" onclick="togglePanel('hope-fear-panel')">Hope/Fear (Uses)</button>
+      <button class="toggle-button" onclick="togglePanel('weapons-panel')">Weapons Table</button>
+      <button class="toggle-button" onclick="togglePanel('spells-panel')">Spells & Features</button>
     </div>
     <div class="main-content">
       <div class="core-panel counter">
@@ -328,8 +316,6 @@
         <p><strong>Roll with Hope:</strong> Success = Gain 1 Hope, fantastic outcome. Failure = Less severe consequences, gain 1 Hope.</p>
         <p><strong>Roll with Fear:</strong> Success = GM gains 1 Fear, complications arise. Failure = GM gains 1 Fear, ominous consequences.</p>
         <p><strong>Critical Success (Doubles):</strong> Spectacular success, gain 1 Hope, clear 1 Stress.</p>
-        <p><strong>Group Action:</strong> Leader rolls Action Roll; others roll Reaction Rolls (+1 per success, -1 per failure).</p>
-        <p><strong>Tag Team Roll:</strong> Spend 3 Hope, both PCs roll, choose one result. Hope = +1 Hope each; Fear = +1 Fear per PC.</p>
       </div>
       <div class="core-panel adversary-tracker">
         <h2>Adversary Tracker</h2>
@@ -354,134 +340,197 @@
         <button onclick="addAdversary()">Add Adversary</button>
       </div>
       <div id="gm-panel" class="toggle-panel">
-        <h2>GM</h2>
-        <h3>GM Moves</h3>
-        <p>GM moves shape the story by reacting to player actions or adding tension. Use when players roll with Fear, fail rolls, act with consequences, offer opportunities, or look to GM for what’s next.</p>
+        <div class="drawer-header">
+          <h2>GM (Moves, Principles, Best Practices)</h2>
+        </div>
+        <h3>GM Moves (SRD, p. 149)</h3>
+        <p>Make a move when players roll with Fear, fail an action roll, act with consequences, offer opportunities, or look to you for what happens next.</p>
         <ul>
-          <li><strong>Reveal an Opportunity:</strong> Offer a new path or benefit (e.g., find a hidden door).</li>
-          <li><strong>Introduce a Threat:</strong> Add danger (e.g., adversary ambush).</li>
-          <li><strong>Complicate the Situation:</strong> Add obstacles (e.g., collapsing bridge).</li>
-          <li><strong>Inflict Harm:</strong> Deal damage or Stress (e.g., adversary hits).</li>
-          <li><strong>Advance a Countdown:</strong> Tick a timer (e.g., siege engine nears).</li>
-          <li><strong>Use Fear:</strong> Spend Fear for twists or boosts (e.g., extra droid attack).</li>
+          <li><strong>Show how the world reacts:</strong> "The kick shatters the door. Light spills in as soldiers stumble to their feet."</li>
+          <li><strong>Ask a question and build on the answer:</strong> "How do you notice the assassin in the treetops?"</li>
+          <li><strong>Make an NPC act in accordance with their motive:</strong> "The bandit snips the gold purse and escapes."</li>
+          <li><strong>Lean on the character’s goals:</strong> "The relic you seek floats in the altar, surrounded by cultists."</li>
+          <li><strong>Signal an imminent off-screen threat:</strong> "Thundering steps approach from crashing trees."</li>
+          <li><strong>Reveal an unwelcome truth or unexpected danger:</strong> "He produces the Orb of Vengeance—the necromancer all along."</li>
+          <li><strong>Force the group to split up:</strong> "Elementals scatter—two to town, three to mill."</li>
+          <li><strong>Make a PC mark Stress:</strong> "Pull the baron to safety but mark a Stress."</li>
+          <li><strong>Make a move the characters don’t see:</strong> "Door clicks open, everything fine... for now."</li>
+          <li><strong>Show the collateral damage:</strong> "Minotaur shatters cart, knocking merchant into wall."</li>
+          <li><strong>Clear a temporary condition:</strong> "Guard cuts vines holding her legs."</li>
+          <li><strong>Shift the environment:</strong> "Bridge snaps, stranding you."</li>
+          <li><strong>Spotlight an adversary:</strong> "Skeleton Dredge shambles forward; two others flank."</li>
+          <li><strong>Capture someone important:</strong> "Thief jumps into cart, grabbing the idol."</li>
+          <li><strong>Use a PC’s backstory:</strong> "Mentor draws blade: 'You don't understand sacrifices for peace.'"</li>
+          <li><strong>Take away an opportunity:</strong> "Door slams, cutting off vault as temple collapses."</li>
         </ul>
-        <h3>GM Principles</h3>
+        <h3>GM Principles (Game Sheets, p. 1)</h3>
         <ul>
-          <li>Begin and end with the fiction.</li>
-          <li>Collaborate at all times, especially during conflict.</li>
-          <li>Fill the world with life, wonder, and danger.</li>
-          <li>Ask questions and incorporate the answers.</li>
-          <li>Make every roll important.</li>
-          <li>Play to find out what happens.</li>
-          <li>Hold on gently.</li>
+          <li><strong>Begin and End with Fiction:</strong> Ground actions in narrative.</li>
+          <li><strong>Collaborate Always:</strong> Work with players, especially in conflict.</li>
+          <li><strong>Fill World with Life:</strong> Add wonder and danger to scenes.</li>
+          <li><strong>Ask Questions:</strong> Incorporate player answers into story.</li>
+          <li><strong>Make Rolls Important:</strong> Ensure rolls drive meaningful outcomes.</li>
+          <li><strong>Play to Find Out:</strong> Let story unfold through play.</li>
+          <li><strong>Hold on Gently:</strong> Be flexible with rules for fun.</li>
         </ul>
-        <h3>GM Best Practices</h3>
+        <h3>GM Best Practices (Game Sheets, p. 1)</h3>
         <ul>
-          <li>Cultivate a curious table.</li>
-          <li>Gain your players’ trust.</li>
-          <li>Keep the story moving forward.</li>
-          <li>Cut to the action.</li>
-          <li>Help the players use the game.</li>
-          <li>Create a meta conversation.</li>
-          <li>Tell them what they would know.</li>
-          <li>Ground the world in motive.</li>
-          <li>Bring the game’s mechanics to life.</li>
-          <li>Reframe rather than reject.</li>
-          <li>Work in moments and montages.</li>
+          <li><strong>Cultivate Curiosity:</strong> Drop intriguing details to hook players.</li>
+          <li><strong>Gain Trust:</strong> Follow through on clues and expectations.</li>
+          <li><strong>Keep Story Moving:</strong> Skip uneventful travel.</li>
+          <li><strong>Cut to Action:</strong> Focus on story parts with narrative.</li>
+          <li><strong>Help Players Use Game:</strong> Remind of mechanics/features.</li>
+          <li><strong>Meta Conversation:</strong> Discuss rules openly.</li>
+          <li><strong>Ground World in Motive:</strong> Give NPCs goals.</li>
+          <li><strong>Bring Mechanics to Life:</strong> Describe rolls narratively.</li>
+          <li><strong>Reframe Rather Than Reject:</strong> Adjust ideas to fit world.</li>
+          <li><strong>Work in Moments/Montages:</strong> Use for pacing.</li>
         </ul>
       </div>
       <div id="rolls-panel" class="toggle-panel">
-        <h2>Rolls</h2>
-        <h3>Action Rolls</h3>
-        <p>Call for an action roll when outcome is uncertain and interesting. Pick trait, set Difficulty, establish stakes, assign advantage/disadvantage, roll Duality Dice, resolve.</p>
-        <h3>Reaction Rolls</h3>
-        <p>Same as Action Rolls but no Hope/Fear generated; used for dodging or resisting.</p>
-        <h3>Attack Rolls</h3>
-        <p>Adversary rolls d20 + modifier vs. PC Evasion. On hit, roll damage vs. thresholds. Spend Fear for Experience boost.</p>
+        <div class="drawer-header">
+          <h2>Rolls (Action, Reaction, Attack)</h2>
+        </div>
+        <h3>Action Rolls (Game Sheets, p. 1)</h3>
+        <p>Call when outcome is uncertain and interesting: Pick trait, set Difficulty (5-30), establish stakes, assign adv/disadv, roll 2d12 (Hope + Fear) + modifiers, resolve.</p>
+        <h3>Reaction Rolls (Game Sheets, p. 3)</h3>
+        <p>Like Action but no Hope/Fear. Used for dodging/resisting dangers (e.g., avoid traps).</p>
+        <h3>Attack Rolls (SRD, p. 43)</h3>
+        <p>Action Roll with weapon trait vs. Difficulty/Evasion. Success = roll damage (Proficiency dice + modifiers). Critical = max damage + roll.</p>
       </div>
       <div id="character-panel" class="toggle-panel">
-        <h2>Character</h2>
-        <p><strong>Evasion:</strong> GM rolls vs. this to hit; avoid attacks/effects.</p>
-        <p><strong>HP:</strong> Abstract health; mark based on damage thresholds.</p>
-        <p><strong>Thresholds:</strong> Minor (1 HP), Major (2 HP), Severe (3 HP); add level to base from armor.</p>
-        <p><strong>Armor Slots:</strong> Spend 1 per attack to reduce threshold by 1; max = Armor Score.</p>
-        <p><strong>Stress:</strong> Max 6 slots; mark for abilities/consequences; full = mark HP instead.</p>
+        <div class="drawer-header">
+          <h2>Character (Evasion, HP, Thresholds, Armor, Stress)</h2>
+        </div>
+        <p><strong>Evasion (SRD, p. 4):</strong> Avoid attacks; GM rolls d20 + mod vs. Evasion.</p>
+        <p><strong>HP (SRD, p. 4):</strong> Health; class-based start. Mark 1-3 based on thresholds.</p>
+        <p><strong>Thresholds (Game Sheets, p. 5):</strong> Add level to armor base (e.g., Minor 6+level, Major 13+level). Minor = 1 HP, Major = 2 HP, Severe = 3 HP.</p>
+        <p><strong>Armor (Game Sheets, p. 3):</strong> Slots = Score; spend 1 to reduce threshold (Severe → Major → Minor → None). Repair on rest.</p>
+        <p><strong>Stress (SRD, p. 43):</strong> 6 slots; mark for abilities/consequences. Full = mark HP. Clear on rest.</p>
       </div>
       <div id="downtime-panel" class="toggle-panel">
-        <h2>Downtime</h2>
-        <h3>Short Rest</h3>
-        <ul>
-          <li>Tend to Wounds: Clear 1d4 + Tier HP (or ally).</li>
-          <li>Clear Stress: Clear 1d4 + Tier Stress.</li>
-          <li>Repair Armor: Clear 1d4 + Tier Armor Slots (or ally).</li>
-          <li>Prepare: Gain 1 Hope (2 if with allies).</li>
-        </ul>
-        <p>GM gains 1d4 Fear. Swap domain cards.</p>
-        <h3>Long Rest</h3>
-        <ul>
-          <li>Tend to All Wounds: Clear all HP (or ally).</li>
-          <li>Clear All Stress: Clear all Stress.</li>
-          <li>Repair All Armor: Clear all Armor Slots (or ally).</li>
-          <li>Prepare: Gain 1 Hope (2 if with allies).</li>
-          <li>Work on Project: Advance project countdown.</li>
-        </ul>
-        <p>GM gains PCs + 1d4 Fear; advance long-term countdown. Swap domain cards.</p>
+        <div class="drawer-header">
+          <h2>Downtime (Game Sheets, p. 3)</h2>
+        </div>
+        <p><strong>Short Rest:</strong> Swap domain cards, choose 2: Tend wounds (1d4+tier HP), clear Stress (1d4+tier), repair armor (1d4+tier slots), prepare (1-2 Hope). GM gains 1d4 Fear.</p>
+        <p><strong>Long Rest:</strong> Swap domain cards, choose 2: Clear all HP/Stress/armor, prepare, or work on project. GM gains PCs +1d4 Fear, advances long-term countdown.</p>
       </div>
       <div id="group-panel" class="toggle-panel">
-        <h2>Group</h2>
-        <h3>Group Actions</h3>
-        <p>Leader rolls Action Roll; others Reaction Rolls (+1 per success, -1 per failure).</p>
-        <h3>Helping Allies</h3>
-        <p>Spend Hope, roll d6 advantage to add to ally’s roll (take highest if multiple).</p>
-        <h3>Tag Team Roll</h3>
-        <p>Spend 3 Hope once per session; both roll, choose one result. Hope = +1 Hope each; Fear = +1 Fear per PC.</p>
+        <div class="drawer-header">
+          <h2>Group (Actions, Helping, Tag Team)</h2>
+        </div>
+        <p><strong>Group Action (Game Sheets, p. 3):</strong> Leader rolls Action; others roll Reaction (+1 per success, -1 per failure).</p>
+        <p><strong>Helping Ally (Game Sheets, p. 3):</strong> Spend Hope, roll d6 advantage die added to ally’s roll (highest if multiple).</p>
+        <p><strong>Tag Team Roll (Game Sheets, p. 3):</strong> Spend 3 Hope once/session; both roll, choose one result. Hope = +1 Hope each; Fear = +1 Fear per PC. Success attack = both roll damage, add together.</p>
       </div>
       <div id="conditions-panel" class="toggle-panel">
-        <h2>Conditions</h2>
+        <div class="drawer-header">
+          <h2>Conditions (Vulnerable, Restrained, Hidden, Temporary)</h2>
+        </div>
         <ul>
-          <li><strong>Vulnerable:</strong> All rolls against them have advantage.</li>
-          <li><strong>Restrained:</strong> Can't move, but can take actions from current position.</li>
-          <li><strong>Hidden:</strong> Rolls against them have disadvantage; ends on attack or if spotted.</li>
-          <li><strong>Temporary Conditions:</strong> End after scene or by GM/PC action (e.g., Cloaked, Unstoppable).</li>
+          <li><strong>Vulnerable (Game Sheets, p. 3):</strong> All rolls against them have advantage.</li>
+          <li><strong>Restrained (Game Sheets, p. 3):</strong> Can't move, but can take actions from current position.</li>
+          <li><strong>Hidden (Game Sheets, p. 3):</strong> Rolls against them have disadvantage; ends on attack or if spotted.</li>
+          <li><strong>Temporary (SRD, p. 45):</strong> Conditions like Cloaked (Rogue: unseen if stationary) or Unstoppable (Guardian: reduce damage, add die, no Restrained/Vulnerable); end on triggers.</li>
         </ul>
       </div>
       <div id="death-moves-panel" class="toggle-panel">
-        <h2>Death Moves</h2>
+        <div class="drawer-header">
+          <h2>Death Moves (Blaze of Glory, Avoid Death, Risk It All)</h2>
+        </div>
         <ul>
-          <li><strong>Blaze of Glory:</strong> Critical success on final action, but permanent death.</li>
-          <li><strong>Avoid Death:</strong> Lose 1 Hope point permanently, survive.</li>
-          <li><strong>Risk It All:</strong> Roll to return without dying; failure = death.</li>
+          <li><strong>Blaze of Glory (SRD, p. 46):</strong> Critical success on final action, then permanent death.</li>
+          <li><strong>Avoid Death (SRD, p. 46):</strong> Lose 1 Hope permanently, survive with 1 HP.</li>
+          <li><strong>Risk It All (SRD, p. 46):</strong> Roll Duality Dice; success = survive with 1 HP, failure = permanent death.</li>
         </ul>
       </div>
       <div id="adversaries-panel" class="toggle-panel">
-        <h2>Adversaries</h2>
-        <h3>Adversary Types</h3>
-        <p>Adversaries use d20 for attacks; no Action Rolls. Features trigger on Fear. Improvise based on narrative.</p>
-        <h3>Improvising Adversaries Table</h3>
+        <div class="drawer-header">
+          <h2>Adversaries (Types, Improvising Table)</h2>
+        </div>
+        <p><strong>Adversary Types (SRD, p. 74):</strong> Minions (low HP, simple), Standard (balanced, abilities), Elite (high HP, Fear features), Boss (multi-phase, countdowns).</p>
         <table>
-          <tr><th>Type</th><th>Example</th><th>Stats/Features</th></tr>
-          <tr><td>Minion</td><td>Goblin Scout</td><td>Low HP (5), basic attack (+3).</td></tr>
-          <tr><td>Standard</td><td>Orc Warrior</td><td>Medium HP (10), attack (+5), Fear feature (e.g., rage boost).</td></tr>
-          <tr><td>Boss</td><td>Dragon</td><td>High HP (20+), multiple attacks, Fear abilities (e.g., breath weapon).</td></tr>
+          <tr><th>Improvising Adversaries</th><th>HP</th><th>Attack Mod</th><th>Difficulty</th><th>Features</th></tr>
+          <tr><td>Minion</td><td>4-6</td><td>+3</td><td>10</td><td>Basic attack, swarm if grouped.</td></tr>
+          <tr><td>Standard</td><td>10-15</td><td>+4</td><td>15</td><td>1-2 abilities, environmental tie-in.</td></tr>
+          <tr><td>Elite</td><td>20-30</td><td>+5</td><td>20</td><td>Fear ability, multi-action.</td></tr>
+          <tr><td>Boss</td><td>40+</td><td>+6</td><td>25</td><td>Phases, countdowns, legendary actions.</td></tr>
         </table>
+        <p><strong>Notes:</strong> Use d20 + mod vs. PC Evasion. Actions auto-succeed unless PC interferes. Spotlight for attacks/moves (Game Sheets, p. 1).</p>
       </div>
       <div id="hope-fear-panel" class="toggle-panel">
-        <h2>Hope/Fear</h2>
-        <h3>Hope Uses</h3>
+        <div class="drawer-header">
+          <h2>Hope/Fear (Uses)</h2>
+        </div>
+        <h3>Hope Uses (Game Sheets, p. 1)</h3>
         <ul>
           <li>Help Ally (+d6 advantage).</li>
           <li>Utilize Experience (+2).</li>
           <li>Initiate Tag Team Roll (3 Hope).</li>
           <li>Activate Hope Feature.</li>
         </ul>
-        <h3>Fear Uses</h3>
+        <h3>Fear Uses (Game Sheets, p. 1)</h3>
         <ul>
-          <li>Interrupt PC action.</li>
+          <li>Interrupt action with twist.</li>
           <li>Extra GM move.</li>
-          <li>Spotlight additional adversary.</li>
-          <li>Use adversary/environment Fear feature.</li>
-          <li>Add adversary Experience to roll.</li>
+          <li>Trigger adversary/environment Fear ability.</li>
+          <li>Boost adversary roll (+Experience).</li>
         </ul>
+      </div>
+      <div id="weapons-panel" class="toggle-panel">
+        <div class="drawer-header">
+          <h2>Weapons Table (Game Sheets, p. 5)</h2>
+        </div>
+        <table>
+          <tr><th>Name</th><th>Trait</th><th>Range</th><th>Damage</th><th>Burden</th><th>Feature</th></tr>
+          <tr><td>Broadsword</td><td>Agility</td><td>Melee</td><td>d8 phy</td><td>One-Handed</td><td>Reliable: +1 to attack rolls</td></tr>
+          <tr><td>Longsword</td><td>Agility</td><td>Melee</td><td>d8+3 phy</td><td>Two-Handed</td><td>—</td></tr>
+          <tr><td>Battleaxe</td><td>Strength</td><td>Melee</td><td>d10+3 phy</td><td>Two-Handed</td><td>—</td></tr>
+          <tr><td>Greatsword</td><td>Strength</td><td>Melee</td><td>d10+3 phy</td><td>Two-Handed</td><td>Massive: −1 to Evasion; on successful attack, roll extra damage die, discard lowest.</td></tr>
+          <tr><td>Mace</td><td>Strength</td><td>Melee</td><td>d8+1 phy</td><td>One-Handed</td><td>—</td></tr>
+          <tr><td>Warhammer</td><td>Strength</td><td>Melee</td><td>d12+3 phy</td><td>Two-Handed</td><td>Heavy: −1 to Evasion</td></tr>
+          <tr><td>Dagger</td><td>Finesse</td><td>Melee</td><td>d8+1 phy</td><td>One-Handed</td><td>—</td></tr>
+          <tr><td>Quarterstaff</td><td>Instinct</td><td>Melee</td><td>d10+3 phy</td><td>Two-Handed</td><td>—</td></tr>
+          <tr><td>Cutlass</td><td>Presence</td><td>Melee</td><td>d8+1 phy</td><td>One-Handed</td><td>—</td></tr>
+          <tr><td>Rapier</td><td>Presence</td><td>Melee</td><td>d8 phy</td><td>One-Handed</td><td>Quick: Mark Stress to target another creature within range.</td></tr>
+          <tr><td>Halberd</td><td>Strength</td><td>Very Close</td><td>d10+2 phy</td><td>Two-Handed</td><td>Cumbersome: −1 to Finesse</td></tr>
+          <tr><td>Spear</td><td>Finesse</td><td>Very Close</td><td>d10+2 phy</td><td>Two-Handed</td><td>Cumbersome: −1 to Finesse</td></tr>
+          <tr><td>Shortbow</td><td>Agility</td><td>Far</td><td>d6+3 phy</td><td>Two-Handed</td><td>—</td></tr>
+          <tr><td>Crossbow</td><td>Finesse</td><td>Far</td><td>d6+1 phy</td><td>One-Handed</td><td>—</td></tr>
+          <tr><td>Longbow</td><td>Agility</td><td>Very Far</td><td>d8+3 phy</td><td>Two-Handed</td><td>Cumbersome: −1 to Finesse</td></tr>
+          <tr><td>Arcane Gauntlets</td><td>Strength</td><td>Melee</td><td>d10+3 mag</td><td>Two-Handed</td><td>—</td></tr>
+          <tr><td>Hallowed Axe</td><td>Strength</td><td>Melee</td><td>d8+1 mag</td><td>One-Handed</td><td>—</td></tr>
+          <tr><td>Glowing Rings</td><td>Agility</td><td>Very Close</td><td>d10+1 mag</td><td>Two-Handed</td><td>—</td></tr>
+          <tr><td>Hand Runes</td><td>Instinct</td><td>Very Close</td><td>d10 mag</td><td>One-Handed</td><td>—</td></tr>
+          <tr><td>Returning Blade</td><td>Finesse</td><td>Close</td><td>d8 mag</td><td>One-Handed</td><td>Returning: Returns to hand after thrown attack.</td></tr>
+          <tr><td>Shortstaff</td><td>Instinct</td><td>Close</td><td>d8+1 mag</td><td>One-Handed</td><td>—</td></tr>
+          <tr><td>Dualstaff</td><td>Instinct</td><td>Far</td><td>d6+3 mag</td><td>Two-Handed</td><td>—</td></tr>
+          <tr><td>Scepter</td><td>Presence</td><td>Far</td><td>d6 mag</td><td>Two-Handed</td><td>Versatile: Can use as Melee, d8 mag.</td></tr>
+          <tr><td>Wand</td><td>Knowledge</td><td>Far</td><td>d6+1 mag</td><td>One-Handed</td><td>—</td></tr>
+          <tr><td>Greatstaff</td><td>Knowledge</td><td>Very Far</td><td>d6 mag</td><td>Two-Handed</td><td>Powerful: On success, roll extra damage die, discard lowest.</td></tr>
+        </table>
+        <p><strong>Notes:</strong> Weapons use domain modifiers (e.g., Strength for melee, Agility for finesse). Burden: One-Handed or Two-Handed. Damage is physical (phy) or magical (mag). Proficiency sets number of dice rolled.</p>
+      </div>
+      <div id="spells-panel" class="toggle-panel">
+        <div class="drawer-header">
+          <h2>Spells & Features (Game Sheets, p. 9-15)</h2>
+        </div>
+        <table>
+          <tr><th>Name</th><th>Domain/Type</th><th>Recall</th><th>Feature</th></tr>
+          <tr><td>Prestidigitation</td><td>Codex/Utility</td><td>—</td><td>Harmless magical effects (change color, create smell, light candle, etc.).</td></tr>
+          <tr><td>Strange Patterns</td><td>Codex/Utility</td><td>—</td><td>Choose number 1-12; roll it on Duality Die to gain Hope or clear Stress. Change after long rest.</td></tr>
+          <tr><td>Minor Illusion</td><td>Codex/Spellcast</td><td>10</td><td>Create minor visual illusion no larger than self within Close range.</td></tr>
+          <tr><td>Arcane Sense</td><td>Arcana/Utility</td><td>—</td><td>Sense magical people/objects within Close range.</td></tr>
+          <tr><td>Channel Raw Power</td><td>Arcana/Utility</td><td>—</td><td>Once per long rest, vault a domain card to gain Hope = card level or enhance spell damage +2x level.</td></tr>
+          <tr><td>Attack of Opportunity</td><td>Bone/Utility</td><td>—</td><td>Reaction: Adversary leaving Melee; roll trait vs. Difficulty, effects: stop movement, deal damage, or move with them (2 on crit).</td></tr>
+          <tr><td>Combat Training</td><td>Bone/Utility</td><td>—</td><td>Ignore burden on weapons; +level to physical damage rolls.</td></tr>
+          <tr><td>Prayer Dice</td><td>Splendor/Utility</td><td>—</td><td>Roll d4s = Spellcast trait at session start; spend to reduce damage, add to rolls, or gain Hope.</td></tr>
+          <tr><td>Cloaked</td><td>Midnight/Utility</td><td>—</td><td>Upgraded Hidden: Remain unseen if stationary even in line of sight; ends on attack/move in sight.</td></tr>
+          <tr><td>Sneak Attack</td><td>Midnight/Utility</td><td>—</td><td>On success while Cloaked or ally in Melee: Add d6s = tier to damage.</td></tr>
+          <tr><td>Ranger’s Focus</td><td>Sage/Utility</td><td>—</td><td>Spend Hope for attack; success makes target Focus (direction sense, Stress on damage, reroll failure by ending Focus).</td></tr>
+          <tr><td>Unstoppable</td><td>Valor/Utility</td><td>—</td><td>Once per long rest: Gain Unstoppable Die (d6 at level 5); increase on damage dealt, gain benefits (reduce physical damage threshold, add die value to damage, can't be Restrained/Vulnerable).</td></tr>
+        </table>
+        <p><strong>Notes:</strong> Spells/features from domain cards. Recall = Difficulty for Spellcast Roll. Features often cost Stress or Hope. Tier scales effects (1-4 based on level).</p>
       </div>
     </div>
   </div>
@@ -670,8 +719,9 @@
       }
     });
 
-    // Initialize
+    // Disclaimer Pop-Up
     window.onload = () => {
+      document.getElementById('disclaimer').style.display = 'block';
       loadInputs();
       loadCounters();
       loadAdversaries();
