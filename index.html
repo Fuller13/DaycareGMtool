@@ -154,6 +154,8 @@
       <button class="toggle-button" onclick="togglePanel('wealth-panel')">Wealth & Loot</button>
       <button class="toggle-button" onclick="togglePanel('weapons-panel')">Weapons Table</button>
       <button class="toggle-button" onclick="togglePanel('spells-panel')">Spells Table</button>
+      <button class="toggle-button" onclick="togglePanel('conditions-panel')">Conditions</button>
+      <button class="toggle-button" onclick="togglePanel('action-checks-panel')">Action Checks</button>
     </div>
     <div class="main-content">
       <div class="core-panel counter">
@@ -178,7 +180,7 @@
       </div>
       <div class="core-panel timer">
         <h2>Countdown Timer</h2>
-        <input type="number" id="timer-seconds" placeholder="Seconds" min="0" oninput="saveInput(this)">
+        <input type="number" id="timer-seconds" placeholder="Seconds" min="0">
         <button onclick="startTimer()">Start</button>
         <button onclick="pauseTimer()">Pause</button>
         <button onclick="resetTimer()">Reset</button>
@@ -270,34 +272,76 @@
         <p><strong>GM Tips:</strong> Adjust costs for world economy. Rarity varies by region (e.g., common herb is exotic elsewhere). Make wealth as vital as desired (survivalist vs. heroic).</p>
       </div>
       <div id="weapons-panel" class="toggle-panel">
-        <h2>Daggerheart Weapons Table</h2>
+        <h2>Weapons Table</h2>
         <table>
-          <tr><th>Weapon Type</th><th>Damage</th><th>Info</th></tr>
-          <tr><td>Dagger</td><td>1d4 piercing</td><td>Light, thrown (range 20/60), finesse.</td></tr>
-          <tr><td>Shortsword</td><td>1d6 piercing</td><td>Light, finesse.</td></tr>
-          <tr><td>Longsword</td><td>1d8 slashing</td><td>Versatile (1d10).</td></tr>
-          <tr><td>Greatsword</td><td>2d6 slashing</td><td>Heavy, two-handed.</td></tr>
-          <tr><td>Bow</td><td>1d6 piercing</td><td>Ammunition (range 80/320), two-handed.</td></tr>
-          <tr><td>Crossbow</td><td>1d8 piercing</td><td>Ammunition (range 80/320), loading, two-handed.</td></tr>
-          <tr><td>Staff</td><td>1d6 bludgeoning</td><td>Versatile (1d8), can be used for spellcasting focus.</td></tr>
-          <tr><td>Axe</td><td>1d6 slashing</td><td>Light, thrown (range 20/60).</td></tr>
+          <tr><th>Name</th><th>Trait</th><th>Range</th><th>Damage</th><th>Burden</th><th>Feature</th></tr>
+          <tr><td>Broadsword</td><td>Agility</td><td>Melee</td><td>d8 phy</td><td>One-Handed</td><td>Reliable: +1 to attack rolls</td></tr>
+          <tr><td>Longsword</td><td>Agility</td><td>Melee</td><td>d8+3 phy</td><td>Two-Handed</td><td>—</td></tr>
+          <tr><td>Battleaxe</td><td>Strength</td><td>Melee</td><td>d10+3 phy</td><td>Two-Handed</td><td>—</td></tr>
+          <tr><td>Greatsword</td><td>Strength</td><td>Melee</td><td>d10+3 phy</td><td>Two-Handed</td><td>Massive: −1 to Evasion; on successful attack, roll extra damage die, discard lowest.</td></tr>
+          <tr><td>Mace</td><td>Strength</td><td>Melee</td><td>d8+1 phy</td><td>One-Handed</td><td>—</td></tr>
+          <tr><td>Warhammer</td><td>Strength</td><td>Melee</td><td>d12+3 phy</td><td>Two-Handed</td><td>Heavy: −1 to Evasion</td></tr>
+          <tr><td>Dagger</td><td>Finesse</td><td>Melee</td><td>d8+1 phy</td><td>One-Handed</td><td>—</td></tr>
+          <tr><td>Quarterstaff</td><td>Instinct</td><td>Melee</td><td>d10+3 phy</td><td>Two-Handed</td><td>—</td></tr>
+          <tr><td>Cutlass</td><td>Presence</td><td>Melee</td><td>d8+1 phy</td><td>One-Handed</td><td>—</td></tr>
+          <tr><td>Rapier</td><td>Presence</td><td>Melee</td><td>d8 phy</td><td>One-Handed</td><td>Quick: Mark Stress to target another creature within range.</td></tr>
+          <tr><td>Halberd</td><td>Strength</td><td>Very Close</td><td>d10+2 phy</td><td>Two-Handed</td><td>Cumbersome: −1 to Finesse</td></tr>
+          <tr><td>Spear</td><td>Finesse</td><td>Very Close</td><td>d10+2 phy</td><td>Two-Handed</td><td>Cumbersome: −1 to Finesse</td></tr>
+          <tr><td>Shortbow</td><td>Agility</td><td>Far</td><td>d6+3 phy</td><td>Two-Handed</td><td>—</td></tr>
+          <tr><td>Crossbow</td><td>Finesse</td><td>Far</td><td>d6+1 phy</td><td>One-Handed</td><td>—</td></tr>
+          <tr><td>Longbow</td><td>Agility</td><td>Very Far</td><td>d8+3 phy</td><td>Two-Handed</td><td>Cumbersome: −1 to Finesse</td></tr>
+          <tr><td>Arcane Gauntlets</td><td>Strength</td><td>Melee</td><td>d10+3 mag</td><td>Two-Handed</td><td>—</td></tr>
+          <tr><td>Hallowed Axe</td><td>Strength</td><td>Melee</td><td>d8+1 mag</td><td>One-Handed</td><td>—</td></tr>
+          <tr><td>Glowing Rings</td><td>Agility</td><td>Very Close</td><td>d10+1 mag</td><td>Two-Handed</td><td>—</td></tr>
+          <tr><td>Hand Runes</td><td>Instinct</td><td>Very Close</td><td>d10 mag</td><td>One-Handed</td><td>—</td></tr>
+          <tr><td>Returning Blade</td><td>Finesse</td><td>Close</td><td>d8 mag</td><td>One-Handed</td><td>Returning: Returns to hand after thrown attack.</td></tr>
+          <tr><td>Shortstaff</td><td>Instinct</td><td>Close</td><td>d8+1 mag</td><td>One-Handed</td><td>—</td></tr>
+          <tr><td>Dualstaff</td><td>Instinct</td><td>Far</td><td>d6+3 mag</td><td>Two-Handed</td><td>—</td></tr>
+          <tr><td>Scepter</td><td>Presence</td><td>Far</td><td>d6 mag</td><td>Two-Handed</td><td>Versatile: Can use as Melee, d8 mag.</td></tr>
+          <tr><td>Wand</td><td>Knowledge</td><td>Far</td><td>d6+1 mag</td><td>One-Handed</td><td>—</td></tr>
+          <tr><td>Greatstaff</td><td>Knowledge</td><td>Very Far</td><td>d6 mag</td><td>Two-Handed</td><td>Powerful: On success, roll extra damage die, discard lowest.</td></tr>
         </table>
-        <p><strong>Notes:</strong> Weapons use domain modifiers (e.g., Strength for melee, Agility for finesse). Loot can add magical effects (e.g., +1 to hit/damage).</p>
+        <p><strong>Notes:</strong> Weapons use domain modifiers (e.g., Strength for melee, Agility for finesse). Burden: One-Handed or Two-Handed. Damage is physical (phy) or magical (mag). Proficiency sets number of dice rolled.</p>
       </div>
       <div id="spells-panel" class="toggle-panel">
-        <h2>Daggerheart Spells Table</h2>
+        <h2>Spells Table</h2>
         <table>
-          <tr><th>Spell</th><th>Damage/Cost</th><th>Info</th></tr>
-          <tr><td>Firebolt</td><td>1d6 fire</td><td>Range far, instant, ignites flammables.</td></tr>
-          <tr><td>Mage Hand</td><td>0 (utility)</td><td>Conjures spectral hand for manipulation, lasts 1 minute.</td></tr>
-          <tr><td>Healing Light</td><td>Heal 1d8</td><td>Touch, costs 1 Stress, restores HP.</td></tr>
-          <tr><td>Lightning Bolt</td><td>3d6 lightning</td><td>Line 100 ft, costs 2 Stress, Dexterity save for half.</td></tr>
-          <tr><td>Invisibility</td><td>0 (utility)</td><td>Touch, lasts 1 hour or until attack/cast, costs 2 Stress.</td></tr>
-          <tr><td>Fireball</td><td>8d6 fire</td><td>Range far, 20 ft radius, costs 3 Stress, Dexterity save for half.</td></tr>
-          <tr><td>Shield</td><td>0 (defense)</td><td>Reaction, +5 Evasion for 1 attack, costs 1 Stress.</td></tr>
-          <tr><td>Telekinesis</td><td>Variable</td><td>Move objects/creatures, costs 2 Stress, Strength save.</td></tr>
+          <tr><th>Name</th><th>Domain/Type</th><th>Recall</th><th>Feature</th></tr>
+          <tr><td>Prestidigitation</td><td>Codex/Utility</td><td>—</td><td>Perform harmless magical effects (change color, create smell, light candle, etc.).</td></tr>
+          <tr><td>Strange Patterns</td><td>Codex/Utility</td><td>—</td><td>Choose number 1-12; roll it on Duality Die to gain Hope or clear Stress. Change after long rest.</td></tr>
+          <tr><td>Minor Illusion</td><td>Codex/Spellcast</td><td>10</td><td>Create minor visual illusion no larger than self within Close range.</td></tr>
+          <tr><td>Channel Raw Raw Power</td><td>Arcana/Utility</td><td>—</td><td>Once per long rest, vault a domain card to gain Hope = card level or enhance spell damage +2x level.</td></tr>
+          <tr><td>Attack of Opportunity</td><td>Bone/Utility</td><td>—</td><td>Reaction: Adversary leaving Melee; roll trait vs. Difficulty, effects: stop movement, deal damage, or move with them (2 on crit).</td></tr>
+          <tr><td>Combat Training</td><td>Bone/Utility</td><td>—</td><td>Ignore burden on weapons; +level to physical damage rolls.</td></tr>
+          <tr><td>Prayer Dice</td><td>Splendor/Utility</td><td>—</td><td>Roll d4s = Spellcast trait at session start; spend to reduce damage, add to rolls, or gain Hope.</td></tr>
+          <tr><td>Cloaked</td><td>Midnight/Utility</td><td>—</td><td>Upgraded Hidden: Remain unseen if stationary even in line of sight; ends on attack/move in sight.</td></tr>
+          <tr><td>Sneak Attack</td><td>Midnight/Utility</td><td>—</td><td>On success while Cloaked or ally in Melee: Add d6s = tier to damage.</td></tr>
+          <tr><td>Ranger’s Focus</td><td>Sage/Utility</td><td>—</td><td>Spend Hope for attack; success makes target Focus (direction sense, Stress on damage, reroll failure by ending Focus).</td></tr>
+          <tr><td>Unstoppable</td><td>Valor/Utility</td><td>—</td><td>Once per long rest: Gain Unstoppable Die (d6 at level 5); increase on damage dealt, gain benefits (reduce physical damage threshold, add die value to damage, can't be Restrained/Vulnerable).</td></tr>
         </table>
-        <p><strong>Notes:</strong> Spells cost Stress (1-3 based on level). Use domain modifiers (e.g., Knowledge for casting). Higher levels increase power (e.g., Firebolt scales to 2d6 at level 5).</p>
+        <p><strong>Notes:</strong> Spells/features from domain cards. Recall = Difficulty for Spellcast Roll. Features often cost Stress or Hope. Tier scales effects (1-4 based on level).</p>
+      </div>
+      <div id="conditions-panel" class="toggle-panel">
+        <h2>Conditions</h2>
+        <ul>
+          <li><strong>Vulnerable:</strong> All rolls against them have advantage.</li>
+          <li><strong>Restrained:</strong> Can't move, but can take actions from current position.</li>
+          <li><strong>Hidden:</strong> Rolls against them have disadvantage; ends on attack or if spotted.</li>
+          <li><strong>Direct Damage:</strong> Can't reduce with Armor Slots.</li>
+        </ul>
+      </div>
+      <div id="action-checks-panel" class="toggle-panel">
+        <h2>Action Checks</h2>
+        <table>
+          <tr><th>Check Type</th><th>Trait</th><th>Example Uses</th></tr>
+          <tr><td>Perception</td><td>Instinct</td><td>Perceive, Sense, Navigate (spot hidden enemies, detect traps).</td></tr>
+          <tr><td>Insight</td><td>Knowledge</td><td>Recall, Analyze, Comprehend (discern lies, understand motives).</td></tr>
+          <tr><td>Performance</td><td>Presence</td><td>Charm, Perform, Deceive (entertain crowds, bluff guards).</td></tr>
+          <tr><td>Athletics</td><td>Agility/Strength</td><td>Sprint/Leap (Agility), Lift/Smash (Strength).</td></tr>
+          <tr><td>Stealth</td><td>Finesse</td><td>Control, Hide, Tinker (sneak past guards).</td></tr>
+          <tr><td>Survival</td><td>Instinct</td><td>Perceive, Sense, Navigate (track foes, forage).</td></tr>
+        </table>
+        <p><strong>Notes:</strong> Use traits for checks. Advantage/disadvantage or Experiences apply as needed.</p>
       </div>
     </div>
   </div>
