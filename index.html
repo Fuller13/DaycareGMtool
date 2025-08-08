@@ -142,9 +142,10 @@
       position: fixed;
       top: 20px;
       right: 20px;
-      width: 500px; /* Increased width for wider tables */
+      width: 500px;
       max-height: 80vh;
       overflow-y: auto;
+      overflow-x: auto; /* Added horizontal scrollbar */
       background-color: #3a3a4a;
       padding: 15px;
       border-radius: 8px;
@@ -228,17 +229,29 @@
       padding: 8px;
       text-align: left;
       word-wrap: break-word;
-      min-width: 80px; /* Ensure columns are wide enough */
+      min-width: 80px;
     }
     th {
       background-color: #3a3a4a;
       color: #4a148c;
     }
     .feature-column {
-      min-width: 150px; /* Wider column for feature descriptions */
+      min-width: 150px;
     }
     ::-webkit-scrollbar {
-      display: none;
+      display: block; /* Ensure scrollbars are visible */
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #2a2a3a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--dh-color-blue);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--dh-color-gold);
     }
     .disclaimer {
       position: fixed;
@@ -264,6 +277,21 @@
     }
     .disclaimer button:hover {
       background-color: var(--top-nav-button-hover-color);
+    }
+    .drawer-header {
+      max-height: unset;
+      height: 100px;
+      padding-left: 16px;
+      padding-right: 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--dh-color-gold);
+      position: sticky;
+      top: 0px;
+      z-index: 1999;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: linear-gradient(180deg, var(--dh-color-purple-light) 0%, var(--dh-color-blue) 100%);
     }
   </style>
 </head>
@@ -455,7 +483,7 @@
         </div>
         <p><strong>Adversary Types (SRD, p. 74):</strong> Minions (low HP, simple), Standard (balanced, abilities), Elite (high HP, Fear features), Boss (multi-phase, countdowns).</p>
         <table>
-          <tr><th>Improvising Adversaries</th><th>HP</th><th>Attack Mod</th><th>Difficulty</th><th>Features</th></tr>
+          <tr><th>Improvising Adversaries</th><th>HP</th><th>Attack Mod</th><th>Difficulty</th><th class="feature-column">Features</th></tr>
           <tr><td>Minion</td><td>4-6</td><td>+3</td><td>10</td><td>Basic attack, swarm if grouped.</td></tr>
           <tr><td>Standard</td><td>10-15</td><td>+4</td><td>15</td><td>1-2 abilities, environmental tie-in.</td></tr>
           <tr><td>Elite</td><td>20-30</td><td>+5</td><td>20</td><td>Fear ability, multi-action.</td></tr>
