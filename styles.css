@@ -65,7 +65,8 @@
   --accent-1: #fafafa;
   --accent-2: #eaeaea;
   --accent-3: #999;
-  --accent-4: #888;
+  --accen
+System: t-4: #888;
   --accent-5: #666;
   --accent-6: #444;
   --accent-7: #333;
@@ -125,7 +126,7 @@ body {
   border-bottom: 1px solid var(--dh-color-gold);
 }
 .core-panel h2 {
-  color: #4a148c;
+  color: var(--dh-color-mustard);
   margin: 0 0 10px 0;
   font-size: 18px;
 }
@@ -137,7 +138,7 @@ body {
   width: 500px;
   max-height: 80vh;
   overflow-y: auto;
-  overflow-x: auto; /* Added horizontal scrollbar */
+  overflow-x: auto;
   background-color: #3a3a4a;
   padding: 15px;
   border-radius: 8px;
@@ -148,6 +149,10 @@ body {
 }
 .toggle-panel.active {
   display: block;
+}
+.toggle-panel h2,
+.toggle-panel h3 {
+  color: var(--dh-color-mustard);
 }
 .toggle-button {
   background: linear-gradient(180deg, var(--dh-color-purple-light) 0%, var(--dh-color-blue) 100%);
@@ -225,13 +230,13 @@ th, td {
 }
 th {
   background-color: #3a3a4a;
-  color: #4a148c;
+  color: var(--dh-color-mustard);
 }
 .feature-column {
   min-width: 150px;
 }
 ::-webkit-scrollbar {
-  display: block; /* Ensure scrollbars are visible */
+  display: block;
   width: 8px;
   height: 8px;
 }
