@@ -65,8 +65,7 @@
   --accent-1: #fafafa;
   --accent-2: #eaeaea;
   --accent-3: #999;
-  --accen
-System: t-4: #888;
+  --accent-4: #888;
   --accent-5: #666;
   --accent-6: #444;
   --accent-7: #333;
@@ -135,7 +134,8 @@ body {
   position: fixed;
   top: 20px;
   right: 20px;
-  width: 500px;
+  width: 700px;
+  max-width: 90vw;
   max-height: 80vh;
   overflow-y: auto;
   overflow-x: auto;
