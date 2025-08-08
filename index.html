@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daggerheart Digital GM Tool</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #1a1a1a;
+      color: #ffffff;
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .container {
+      display: flex;
+      gap: 20px;
+    }
+    .sidebar {
+      width: 200px;
+      background-color: #2a2a3a;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .main-content {
+      flex: 1;
+      background-color: #2a2a3a;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+      position: relative;
+    }
+    .core-panel {
+      background-color: #3a3a4a;
+      padding: 12px;
+      border-radius: 6px;
+      margin-bottom: 15px;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+    .core-panel h2 {
+      color: #a100ff;
+      margin: 0 0 10px 0;
+      font-size: 18px;
+    }
+    .toggle-panel {
+      display: none;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 350px;
+      max-height: 80vh;
+      overflow-y: auto;
+      background-color: #3a3a4a;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+      z-index: 10;
+      border: 1px solid #6200ea;
+    }
+    .toggle-panel.active {
+      display: block;
+    }
+    .toggle-button {
+      background-color: #6200ea;
+      color: #ffffff;
+      border: none;
+      padding: 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+    .toggle-button:hover {
+      background-color: #7b1fa2;
+    }
+    .counter, .dice-roller, .timer, .action-rolls, .adversary-tracker {
+      margin-bottom: 10px;
+    }
+    .counter button, .dice-roller button, .timer button {
+      background-color: #0288d1;
+      color: #ffffff;
+      border: none;
+      padding: 6px 12px;
+      margin: 0 5px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .counter button:hover, .dice-roller button:hover, .timer button:hover {
+      background-color: #039be5;
+    }
+    .adversary {
+      background-color: #4a4a5a;
+      padding: 10px;
+      margin: 5px 0;
+      border-radius: 4px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 5px;
+    }
+    .adversary input, .adversary textarea {
+      background-color: #5a5a6a;
+      color: #ffffff;
+      border: 1px solid #6200ea;
+      padding: 6px;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    .adversary textarea {
+      grid-column: span 3;
+    }
+    input, textarea {
+      background-color: #4a4a5a;
+      color: #ffffff;
+      border: 1px solid #6200ea;
+      padding: 8px;
+      border-radius: 4px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 10px 0;
+    }
+    table, th, td {
+      border: 1px solid #6200ea;
+    }
+    th, td {
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #3a3a4a;
+      color: #a100ff;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="sidebar">
+      <h2 style="color: #a100ff; font-size: 20px;">Daggerheart GM Tool</h2>
+      <button class="toggle-button" onclick="togglePanel('rules-panel')">Rules Quick Reference</button>
+      <button class="toggle-button" onclick="togglePanel('gm-moves-panel')">GM Moves</button>
+      <button class="toggle-button" onclick="togglePanel('difficulties-panel')">Difficulty Settings</button>
+      <button class="toggle-button" onclick="togglePanel('wealth-panel')">Wealth & Loot</button>
+      <button class="toggle-button" onclick="togglePanel('weapons-panel')">Weapons Table</button>
+      <button class="toggle-button" onclick="togglePanel('spells-panel')">Spells Table</button>
+    </div>
+    <div class="main-content">
+      <div class="core-panel counter">
+        <h2>Hope/Fear Counters</h2>
+        <div>
+          Hope: <span id="hope-count">0</span>
+          <button onclick="incrementCounter('hope')">+</button>
+          <button onclick="decrementCounter('hope')">-</button>
+        </div>
+        <div>
+          Fear: <span id="fear-count">0</span>
+          <button onclick="incrementCounter('fear')">+</button>
+          <button onclick="decrementCounter('fear')">-</button>
+        </div>
+      </div>
+      <div class="core-panel dice-roller">
+        <h2>Digital Dice Roller</h2>
+        <button onclick="rollDualityDice()">Roll Duality Dice (2d12)</button>
+        <button onclick="rollGMDie()">Roll GM Die (d20)</button>
+        <button onclick="rollDamageDice()">Roll Damage Dice</button>
+        <div id="dice-result"></div>
+      </div>
+      <div class="core-panel timer">
+        <h2>Countdown Timer</h2>
+        <input type="number" id="timer-seconds" placeholder="Seconds" min="0" oninput="saveInput(this)">
+        <button onclick="startTimer()">Start</button>
+        <button onclick="pauseTimer()">Pause</button>
+        <button onclick="resetTimer()">Reset</button>
+        <div id="timer-display">00:00</div>
+      </div>
+      <div class="core-panel action-rolls">
+        <h2>Action Roll Options</h2>
+        <p><strong>Roll with Hope:</strong> Success = Gain 1 Hope, fantastic outcome. Failure = Less severe consequences, gain 1 Hope.</p>
+        <p><strong>Roll with Fear:</strong> Success = GM gains 1 Fear, complications arise. Failure = GM gains 1 Fear, ominous consequences.</p>
+        <p><strong>Critical Success (Doubles):</strong> Spectacular success, gain 1 Hope, clear 1 Stress.</p>
+      </div>
+      <div class="core-panel adversary-tracker">
+        <h2>Adversary Tracker</h2>
+        <div id="adversaries">
+          <div class="adversary">
+            <input type="text" placeholder="Name" oninput="saveAdversary(this)">
+            <input type="number" placeholder="HP" min="0" oninput="saveAdversary(this)">
+            <input type="number" placeholder="Evasion" min="0" oninput="saveAdversary(this)">
+            <input type="number" placeholder="Armor" min="0" oninput="saveAdversary(this)">
+            <input type="number" placeholder="Agility" min="0" oninput="saveAdversary(this)">
+            <input type="number" placeholder="Strength" min="0" oninput="saveAdversary(this)">
+            <input type="number" placeholder="Finesse" min="0" oninput="saveAdversary(this)">
+            <input type="number" placeholder="Instinct" min="0" oninput="saveAdversary(this)">
+            <input type="number" placeholder="Presence" min="0" oninput="saveAdversary(this)">
+            <input type="number" placeholder="Knowledge" min="0" oninput="saveAdversary(this)">
+            <input type="number" placeholder="Minor Threshold" min="0" oninput="saveAdversary(this)">
+            <input type="number" placeholder="Major Threshold" min="0" oninput="saveAdversary(this)">
+            <input type="number" placeholder="Severe Threshold" min="0" oninput="saveAdversary(this)">
+            <textarea placeholder="Abilities/Notes" oninput="saveAdversary(this)"></textarea>
+          </div>
+        </div>
+        <button onclick="addAdversary()">Add Adversary</button>
+      </div>
+      <div id="rules-panel" class="toggle-panel">
+        <h2>Rules Quick Reference</h2>
+        <p><strong>Action Rolls:</strong> Roll 2d12 (Hope + Fear) + modifiers (Traits/Experiences) vs. Difficulty (5-30). Higher die determines Hope/Fear outcome. Doubles = Critical Success.</p>
+        <p><strong>Reaction Rolls:</strong> Same as Action Rolls but no Hope/Fear generated, used for dodging or resisting effects.</p>
+        <p><strong>Damage Rolls:</strong> On attack success, roll damage dice + modifiers, compare to target’s Damage Thresholds (Minor: 1 HP, Major: 2 HP, Severe: 3 HP).</p>
+        <p><strong>Damage Thresholds:</strong> Minor (e.g., <8), Major (e.g., 8-15), Severe (e.g., 16+). Meets/beats threshold triggers effect.</p>
+        <p><strong>Armor:</strong> Spend 1 slot per attack to reduce damage by 1 threshold (Severe → Major, Major → Minor, Minor → None). Slots noted by shields on sheet.</p>
+        <p><strong>Evasion:</strong> GM rolls d20 + adversary attack modifier vs. PC Evasion to hit.</p>
+        <p><strong>Stress:</strong> Mark for spells/abilities or GM consequences. If full, mark 1 HP instead. Max slots on sheet.</p>
+        <p><strong>Hope Uses:</strong> Help ally, use Experience, Tag Team roll, activate class Hope feature. Max 5 Hope per PC.</p>
+        <p><strong>Fear Uses:</strong> Interrupt PC action, extra GM move, trigger adversary/environment Fear ability, boost adversary roll (+Experience). Max 12 Fear.</p>
+        <p><strong>Rest:</strong> Short Rest (2 options): Tend wounds (heal HP), clear Stress, repair armor, prepare (gain Hope). Long Rest: All wounds/stress/armor cleared, or work on project.</p>
+        <p><strong>Distances:</strong> Melee (touching), Very Close (card short side), Close (pencil length), Far (paper length), Very Far (beyond paper), Out of Range (untargetable).</p>
+        <p><strong>Adversary Rolls:</strong> Use d20 + attack modifier vs. PC Evasion. No Action Rolls; actions auto-succeed unless PC interferes. Reaction Rolls use d20 vs. set difficulty.</p>
+      </div>
+      <div id="gm-moves-panel" class="toggle-panel">
+        <h2>GM Moves (Core Rulebook, p. 149)</h2>
+        <p>GM moves shape the story by reacting to player actions or adding tension. Use when players roll with Fear, fail rolls, act with consequences, offer opportunities, or look to GM for what’s next.</p>
+        <ul>
+          <li><strong>Reveal an Opportunity:</strong> Offer a new path or benefit (e.g., find a hidden door).</li>
+          <li><strong>Introduce a Threat:</strong> Add danger (e.g., adversary ambush).</li>
+          <li><strong>Complicate the Situation:</strong> Add obstacles (e.g., collapsing bridge).</li>
+          <li><strong>Inflict Harm:</strong> Deal damage or Stress (e.g., adversary hits).</li>
+          <li><strong>Advance a Countdown:</strong> Tick a timer (e.g., siege engine nears).</li>
+          <li><strong>Use Fear:</strong> Spend Fear for twists or boosts (e.g., extra droid attack).</li>
+        </ul>
+        <p><strong>Tip:</strong> Keep moves logical and fun, varying impact. Small moves can build to big consequences (e.g., orphaned enemies return later).</p>
+      </div>
+      <div id="difficulties-panel" class="toggle-panel">
+        <h2>Difficulty Settings (Core Rulebook, p. 158-159)</h2>
+        <table>
+          <tr><th>Difficulty</th><th>Value</th><th>Description</th></tr>
+          <tr><td>Very Easy</td><td>5</td><td>Trivial task, likely auto-success for skilled PCs.</td></tr>
+          <tr><td>Easy</td><td>10</td><td>Simple task, low risk.</td></tr>
+          <tr><td>Average</td><td>15</td><td>Standard challenge, moderate skill needed.</td></tr>
+          <tr><td>Hard</td><td>20</td><td>Difficult task, high skill or luck required.</td></tr>
+          <tr><td>Very Hard</td><td>25</td><td>Expert-level challenge, rare success.</td></tr>
+          <tr><td>Nearly Impossible</td><td>30</td><td>Heroic feat, almost unattainable.</td></tr>
+        </table>
+        <p><strong>Scaling Results:</strong> Adjust info/rewards based on roll (e.g., low roll = vague clue, high roll = case-breaking evidence).</p>
+        <p><strong>Secret vs. Open:</strong> Choose whether to reveal difficulty before roll. Use adversary difficulty for opposed rolls.</p>
+      </div>
+      <div id="wealth-panel" class="toggle-panel">
+        <h2>Wealth & Loot (Core Rulebook, p. 165)</h2>
+        <table>
+          <tr><th>Item/Service</th><th>Cost</th></tr>
+          <tr><td>Meal (simple)</td><td>1-2 handfuls</td></tr>
+          <tr><td>Inn stay (basic)</td><td>3-5 handfuls</td></tr>
+          <tr><td>Weapon (common)</td><td>1-3 bags</td></tr>
+          <tr><td>Armor (light)</td><td>2-5 bags</td></tr>
+          <tr><td>Healing potion</td><td>1 bag</td></tr>
+          <tr><td>Mount (basic)</td><td>5-10 bags</td></tr>
+          <tr><td>Chest of treasure</td><td>10 bags</td></tr>
+        </table>
+        <p><strong>Wealth Levels:</strong> Handfuls (small purchases), Bags (10 handfuls, gear), Chests (10 bags, major wealth).</p>
+        <p><strong>GM Tips:</strong> Adjust costs for world economy. Rarity varies by region (e.g., common herb is exotic elsewhere). Make wealth as vital as desired (survivalist vs. heroic).</p>
+      </div>
+      <div id="weapons-panel" class="toggle-panel">
+        <h2>Daggerheart Weapons Table</h2>
+        <table>
+          <tr><th>Weapon Type</th><th>Damage</th><th>Info</th></tr>
+          <tr><td>Dagger</td><td>1d4 piercing</td><td>Light, thrown (range 20/60), finesse.</td></tr>
+          <tr><td>Shortsword</td><td>1d6 piercing</td><td>Light, finesse.</td></tr>
+          <tr><td>Longsword</td><td>1d8 slashing</td><td>Versatile (1d10).</td></tr>
+          <tr><td>Greatsword</td><td>2d6 slashing</td><td>Heavy, two-handed.</td></tr>
+          <tr><td>Bow</td><td>1d6 piercing</td><td>Ammunition (range 80/320), two-handed.</td></tr>
+          <tr><td>Crossbow</td><td>1d8 piercing</td><td>Ammunition (range 80/320), loading, two-handed.</td></tr>
+          <tr><td>Staff</td><td>1d6 bludgeoning</td><td>Versatile (1d8), can be used for spellcasting focus.</td></tr>
+          <tr><td>Axe</td><td>1d6 slashing</td><td>Light, thrown (range 20/60).</td></tr>
+        </table>
+        <p><strong>Notes:</strong> Weapons use domain modifiers (e.g., Strength for melee, Agility for finesse). Loot can add magical effects (e.g., +1 to hit/damage).</p>
+      </div>
+      <div id="spells-panel" class="toggle-panel">
+        <h2>Daggerheart Spells Table</h2>
+        <table>
+          <tr><th>Spell</th><th>Damage/Cost</th><th>Info</th></tr>
+          <tr><td>Firebolt</td><td>1d6 fire</td><td>Range far, instant, ignites flammables.</td></tr>
+          <tr><td>Mage Hand</td><td>0 (utility)</td><td>Conjures spectral hand for manipulation, lasts 1 minute.</td></tr>
+          <tr><td>Healing Light</td><td>Heal 1d8</td><td>Touch, costs 1 Stress, restores HP.</td></tr>
+          <tr><td>Lightning Bolt</td><td>3d6 lightning</td><td>Line 100 ft, costs 2 Stress, Dexterity save for half.</td></tr>
+          <tr><td>Invisibility</td><td>0 (utility)</td><td>Touch, lasts 1 hour or until attack/cast, costs 2 Stress.</td></tr>
+          <tr><td>Fireball</td><td>8d6 fire</td><td>Range far, 20 ft radius, costs 3 Stress, Dexterity save for half.</td></tr>
+          <tr><td>Shield</td><td>0 (defense)</td><td>Reaction, +5 Evasion for 1 attack, costs 1 Stress.</td></tr>
+          <tr><td>Telekinesis</td><td>Variable</td><td>Move objects/creatures, costs 2 Stress, Strength save.</td></tr>
+        </table>
+        <p><strong>Notes:</strong> Spells cost Stress (1-3 based on level). Use domain modifiers (e.g., Knowledge for casting). Higher levels increase power (e.g., Firebolt scales to 2d6 at level 5).</p>
+      </div>
+    </div>
+  </div>
+  <script>
+    // Local Storage for Input Persistence
+    function saveInput(element) {
+      localStorage.setItem(element.id, element.value);
+    }
+    function loadInputs() {
+      document.querySelectorAll('input, textarea').forEach(el => {
+        const saved = localStorage.getItem(el.id);
+        if (saved) el.value = saved;
+      });
+    }
+
+    // Hope/Fear Counters
+    let hopeCount = 0, fearCount = 0;
+    function incrementCounter(type) {
+      if (type === 'hope' && hopeCount < 5) hopeCount++;
+      if (type === 'fear' && fearCount < 12) fearCount++;
+      updateCounterDisplay(type);
+      localStorage.setItem(`${type}Count`, type === 'hope' ? hopeCount : fearCount);
+    }
+    function decrementCounter(type) {
+      if (type === 'hope' && hopeCount > 0) hopeCount--;
+      if (type === 'fear' && fearCount > 0) fearCount--;
+      updateCounterDisplay(type);
+      localStorage.setItem(`${type}Count`, type === 'hope' ? hopeCount : fearCount);
+    }
+    function updateCounterDisplay(type) {
+      document.getElementById(`${type}-count`).textContent = type === 'hope' ? hopeCount : fearCount;
+    }
+    function loadCounters() {
+      hopeCount = parseInt(localStorage.getItem('hopeCount') || 0);
+      fearCount = parseInt(localStorage.getItem('fearCount') || 0);
+      updateCounterDisplay('hope');
+      updateCounterDisplay('fear');
+    }
+
+    // Dice Roller
+    function rollDualityDice() {
+      const hope = Math.floor(Math.random() * 12) + 1;
+      const fear = Math.floor(Math.random() * 12) + 1;
+      const total = hope + fear;
+      const outcome = hope > fear ? 'Hope' : fear > hope ? 'Fear' : 'Critical (Doubles)';
+      const result = `Total: ${total} (${hope} Hope, ${fear} Fear) - ${outcome}${hope === fear ? ' - Gain 1 Hope, Clear 1 Stress' : ''}`;
+      document.getElementById('dice-result').textContent = result;
+    }
+    function rollGMDie() {
+      const roll = Math.floor(Math.random() * 20) + 1;
+      document.getElementById('dice-result').textContent = `GM Die (d20): ${roll}`;
+    }
+    function rollDamageDice() {
+      const dice = prompt('Enter damage dice (e.g., 1d6, 2d8):');
+      if (!dice) return;
+      const match = dice.match(/(\d+)d(\d+)/);
+      if (!match) {
+        document.getElementById('dice-result').textContent = 'Invalid format';
+        return;
+      }
+      const count = parseInt(match[1]), sides = parseInt(match[2]);
+      let total = 0;
+      for (let i = 0; i < count; i++) {
+        total += Math.floor(Math.random() * sides) + 1;
+      }
+      document.getElementById('dice-result').textContent = `Damage Roll (${dice}): ${total}`;
+    }
+
+    // Countdown Timer
+    let timerInterval, timeLeft = 0;
+    function startTimer() {
+      const input = document.getElementById('timer-seconds').value;
+      if (!input || isNaN(input)) return;
+      timeLeft = parseInt(input);
+      if (timerInterval) clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        if (timeLeft <= 0) {
+          clearInterval(timerInterval);
+          document.getElementById('timer-display').textContent = '00:00';
+          alert('Countdown Complete!');
+          return;
+        }
+        timeLeft--;
+        updateTimerDisplay();
+      }, 1000);
+      updateTimerDisplay();
+    }
+    function pauseTimer() {
+      clearInterval(timerInterval);
+    }
+    function resetTimer() {
+      clearInterval(timerInterval);
+      timeLeft = 0;
+      document.getElementById('timer-seconds').value = '';
+      document.getElementById('timer-display').textContent = '00:00';
+    }
+    function updateTimerDisplay() {
+      const minutes = Math.floor(timeLeft / 60);
+      const seconds = timeLeft % 60;
+      document.getElementById('timer-display').textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    }
+
+    // Adversary Tracker
+    function addAdversary() {
+      const adversaryDiv = document.createElement('div');
+      adversaryDiv.className = 'adversary';
+      adversaryDiv.innerHTML = `
+        <input type="text" placeholder="Name" oninput="saveAdversary(this)">
+        <input type="number" placeholder="HP" min="0" oninput="saveAdversary(this)">
+        <input type="number" placeholder="Evasion" min="0" oninput="saveAdversary(this)">
+        <input type="number" placeholder="Armor" min="0" oninput="saveAdversary(this)">
+        <input type="number" placeholder="Agility" min="0" oninput="saveAdversary(this)">
+        <input type="number" placeholder="Strength" min="0" oninput="saveAdversary(this)">
+        <input type="number" placeholder="Finesse" min="0" oninput="saveAdversary(this)">
+        <input type="number" placeholder="Instinct" min="0" oninput="saveAdversary(this)">
+        <input type="number" placeholder="Presence" min="0" oninput="saveAdversary(this)">
+        <input type="number" placeholder="Knowledge" min="0" oninput="saveAdversary(this)">
+        <input type="number" placeholder="Minor Threshold" min="0" oninput="saveAdversary(this)">
+        <input type="number" placeholder="Major Threshold" min="0" oninput="saveAdversary(this)">
+        <input type="number" placeholder="Severe Threshold" min="0" oninput="saveAdversary(this)">
+        <textarea placeholder="Abilities/Notes" oninput="saveAdversary(this)"></textarea>
+      `;
+      document.getElementById('adversaries').appendChild(adversaryDiv);
+    }
+    function saveAdversary(element) {
+      const adversaryDiv = element.closest('.adversary');
+      const inputs = adversaryDiv.querySelectorAll('input, textarea');
+      const index = Array.from(adversaryDiv.parentNode.children).indexOf(adversaryDiv);
+      const data = {
+        name: inputs[0].value,
+        hp: inputs[1].value,
+        evasion: inputs[2].value,
+        armor: inputs[3].value,
+        agility: inputs[4].value,
+        strength: inputs[5].value,
+        finesse: inputs[6].value,
+        instinct: inputs[7].value,
+        presence: inputs[8].value,
+        knowledge: inputs[9].value,
+        minor: inputs[10].value,
+        major: inputs[11].value,
+        severe: inputs[12].value,
+        notes: inputs[13].value
+      };
+      localStorage.setItem(`adversary${index}`, JSON.stringify(data));
+    }
+    function loadAdversaries() {
+      const adversaries = document.getElementById('adversaries');
+      let index = 0;
+      while (localStorage.getItem(`adversary${index}`)) {
+        if (index > 0) addAdversary();
+        const data = JSON.parse(localStorage.getItem(`adversary${index}`));
+        const adversaryDiv = adversaries.children[index];
+        const inputs = adversaryDiv.querySelectorAll('input, textarea');
+        inputs[0].value = data.name;
+        inputs[1].value = data.hp;
+        inputs[2].value = data.evasion;
+        inputs[3].value = data.armor;
+        inputs[4].value = data.agility;
+        inputs[5].value = data.strength;
+        inputs[6].value = data.finesse;
+        inputs[7].value = data.instinct;
+        inputs[8].value = data.presence;
+        inputs[9].value = data.knowledge;
+        inputs[10].value = data.minor;
+        inputs[11].value = data.major;
+        inputs[12].value = data.severe;
+        inputs[13].value = data.notes;
+        index++;
+      }
+    }
+
+    // Toggle Panels with Outside Click Close
+    function togglePanel(panelId) {
+      document.querySelectorAll('.toggle-panel').forEach(panel => {
+        panel.classList.remove('active');
+      });
+      const panel = document.getElementById(panelId);
+      if (panel) panel.classList.add('active');
+    }
+
+    document.addEventListener('click', function(event) {
+      const activePanel = document.querySelector('.toggle-panel.active');
+      if (activePanel && !activePanel.contains(event.target) && !event.target.classList.contains('toggle-button')) {
+        activePanel.classList.remove('active');
+      }
+    });
+
+    // Initialize
+    window.onload = () => {
+      loadInputs();
+      loadCounters();
+      loadAdversaries();
+    };
+  </script>
+</body>
+</html>
