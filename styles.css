@@ -177,7 +177,7 @@ body {
 .counter, .dice-roller, .timer, .action-rolls, .adversary-tracker {
   margin-bottom: 10px;
 }
-.counter button, .dice-roller button, .timer button {
+.counter button, .dice-roller button, .timer button, .adversary-button {
   background-color: var(--dh-color-blue);
   color: #ffffff;
   border: none;
@@ -187,7 +187,7 @@ body {
   cursor: pointer;
   transition: background-color 0.3s;
 }
-.counter button:hover, .dice-roller button:hover, .timer button:hover {
+.counter button:hover, .dice-roller button:hover, .timer button:hover, .adversary-button:hover {
   background-color: var(--top-nav-button-hover-color);
 }
 .counter-section {
