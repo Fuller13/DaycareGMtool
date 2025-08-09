@@ -49,12 +49,30 @@
         <div id="dice-result"></div>
       </div>
       <div class="core-panel timer">
-        <h2>Countdown Timer</h2>
-        <input type="number" id="timer-seconds" placeholder="Seconds" min="0" oninput="saveInput(this)">
-        <button onclick="startTimer()">Start</button>
-        <button onclick="pauseTimer()">Pause</button>
-        <button onclick="resetTimer()">Reset</button>
-        <div id="timer-display">00:00</div>
+        <h2>Counters</h2>
+        <div class="counter-section">
+          <h3>Countdown Timer</h3>
+          <input type="number" id="timer-seconds" placeholder="Seconds" min="0" oninput="saveInput(this)">
+          <button onclick="startTimer()">Start</button>
+          <button onclick="pauseTimer()">Pause</button>
+          <button onclick="resetTimer()">Reset</button>
+          <div id="timer-display">00:00</div>
+        </div>
+        <div class="counter-section">
+          <h3>Tally Counter</h3>
+          <div>
+            Tally: <span id="tally-count">0</span>
+            <button onclick="incrementTally()">+</button>
+            <button onclick="decrementTally()">-</button>
+          </div>
+        </div>
+        <div class="counter-section">
+          <h3>Abacus Slider</h3>
+          <div>
+            <input type="range" id="abacus-slider" min="-10" max="10" value="0" oninput="saveAbacus(this)">
+            <span id="abacus-value">0</span>
+          </div>
+        </div>
       </div>
       <div class="core-panel action-rolls">
         <h2>Action Roll Options</h2>
