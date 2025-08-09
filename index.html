@@ -69,7 +69,7 @@
         </div>
         <div class="counter-section">
           <h3>Abacus Slider</h3>
-          <div>
+          <div class="abacus-slider-container">
             <input type="range" id="abacus-slider" min="-10" max="10" value="0" oninput="saveAbacus(this)">
             <span id="abacus-value">0</span>
           </div>
@@ -107,7 +107,7 @@
         <div class="drawer-header">
           <h2>GM (Moves, Principles, Best Practices)</h2>
         </div>
-        <h3>GM Moves (SRD, p. 149)</h3>
+        <h3>GM Moves</h3>
         <p>Make a move when players roll with Fear, fail an action roll, act with consequences, offer opportunities, or look to you for what happens next.</p>
         <ul>
           <li><strong>Show how the world reacts:</strong> "The kick shatters the door. Light spills in as soldiers stumble to their feet."</li>
@@ -127,7 +127,7 @@
           <li><strong>Use a PC’s backstory:</strong> "Mentor draws blade: 'You don't understand sacrifices for peace.'"</li>
           <li><strong>Take away an opportunity:</strong> "Door slams, cutting off vault as temple collapses."</li>
         </ul>
-        <h3>GM Principles (Game Sheets, p. 1)</h3>
+        <h3>GM Principles</h3>
         <ul>
           <li><strong>Begin and End with Fiction:</strong> Ground actions in narrative.</li>
           <li><strong>Collaborate Always:</strong> Work with players, especially in conflict.</li>
@@ -137,7 +137,7 @@
           <li><strong>Play to Find Out:</strong> Let story unfold through play.</li>
           <li><strong>Hold on Gently:</strong> Be flexible with rules for fun.</li>
         </ul>
-        <h3>GM Best Practices (Game Sheets, p. 1)</h3>
+        <h3>GM Best Practices</h3>
         <ul>
           <li><strong>Cultivate Curiosity:</strong> Drop intriguing details to hook players.</li>
           <li><strong>Gain Trust:</strong> Follow through on clues and expectations.</li>
@@ -168,26 +168,26 @@
         <div class="drawer-header">
           <h2>Rolls (Action, Reaction, Attack)</h2>
         </div>
-        <h3>Action Rolls (Game Sheets, p. 1)</h3>
+        <h3>Action Rolls</h3>
         <p>Call when outcome is uncertain and interesting: Pick trait, set Difficulty (5-30), establish stakes, assign adv/disadv, roll 2d12 (Hope + Fear) + modifiers, resolve.</p>
-        <h3>Reaction Rolls (Game Sheets, p. 3)</h3>
+        <h3>Reaction Rolls</h3>
         <p>Like Action but no Hope/Fear. Used for dodging/resisting dangers (e.g., avoid traps).</p>
-        <h3>Attack Rolls (SRD, p. 43)</h3>
+        <h3>Attack Rolls</h3>
         <p>Action Roll with weapon trait vs. Difficulty/Evasion. Success = roll damage (Proficiency dice + modifiers). Critical = max damage + roll.</p>
       </div>
       <div id="character-panel" class="toggle-panel">
         <div class="drawer-header">
           <h2>Character (Evasion, HP, Thresholds, Armor, Stress)</h2>
         </div>
-        <p><strong>Evasion (SRD, p. 4):</strong> Avoid attacks; GM rolls d20 + mod vs. Evasion.</p>
-        <p><strong>HP (SRD, p. 4):</strong> Health; class-based start. Mark 1-3 based on thresholds.</p>
-        <p><strong>Thresholds (Game Sheets, p. 5):</strong> Add level to armor base (e.g., Minor 6+level, Major 13+level). Minor = 1 HP, Major = 2 HP, Severe = 3 HP.</p>
-        <p><strong>Armor (Game Sheets, p. 3):</strong> Slots = Score; spend 1 to reduce threshold (Severe → Major → Minor → None). Repair on rest.</p>
-        <p><strong>Stress (SRD, p. 43):</strong> 6 slots; mark for abilities/consequences. Full = mark HP. Clear on rest.</p>
+        <p><strong>Evasion:</strong> Avoid attacks; GM rolls d20 + mod vs. Evasion.</p>
+        <p><strong>HP:</strong> Health; class-based start. Mark 1-3 based on thresholds.</p>
+        <p><strong>Thresholds:</strong> Add level to armor base (e.g., Minor 6+level, Major 13+level). Minor = 1 HP, Major = 2 HP, Severe = 3 HP.</p>
+        <p><strong>Armor:</strong> Slots = Score; spend 1 to reduce threshold (Severe → Major → Minor → None). Repair on rest.</p>
+        <p><strong>Stress:</strong> 6 slots; mark for abilities/consequences. Full = mark HP. Clear on rest.</p>
       </div>
       <div id="downtime-panel" class="toggle-panel">
         <div class="drawer-header">
-          <h2>Downtime (Game Sheets, p. 3)</h2>
+          <h2>Downtime</h2>
         </div>
         <p><strong>Short Rest:</strong> Swap domain cards, choose 2: Tend wounds (1d4+tier HP), clear Stress (1d4+tier), repair armor (1d4+tier slots), prepare (1-2 Hope). GM gains 1d4 Fear.</p>
         <p><strong>Long Rest:</strong> Swap domain cards, choose 2: Clear all HP/Stress/armor, prepare, or work on project. GM gains PCs +1d4 Fear, advances long-term countdown.</p>
@@ -196,19 +196,19 @@
         <div class="drawer-header">
           <h2>Group (Actions, Helping, Tag Team)</h2>
         </div>
-        <p><strong>Group Action (Game Sheets, p. 3):</strong> Leader rolls Action; others roll Reaction (+1 per success, -1 per failure).</p>
-        <p><strong>Helping Ally (Game Sheets, p. 3):</strong> Spend Hope, roll d6 advantage die added to ally’s roll (highest if multiple).</p>
-        <p><strong>Tag Team Roll (Game Sheets, p. 3):</strong> Spend 3 Hope once/session; both roll, choose one result. Hope = +1 Hope each; Fear = +1 Fear per PC. Success attack = both roll damage, add together.</p>
+        <p><strong>Group Action:</strong> Leader rolls Action; others roll Reaction (+1 per success, -1 per failure).</p>
+        <p><strong>Helping Ally:</strong> Spend Hope, roll d6 advantage die added to ally’s roll (highest if multiple).</p>
+        <p><strong>Tag Team Roll:</strong> Spend 3 Hope once/session; both roll, choose one result. Hope = +1 Hope each; Fear = +1 Fear per PC. Success attack = both roll damage, add together.</p>
       </div>
       <div id="conditions-panel" class="toggle-panel">
         <div class="drawer-header">
           <h2>Conditions (Vulnerable, Restrained, Hidden, Temporary)</h2>
         </div>
         <ul>
-          <li><strong>Vulnerable (Game Sheets, p. 3):</strong> All rolls against them have advantage.</li>
-          <li><strong>Restrained (Game Sheets, p. 3):</strong> Can't move, but can take actions from current position.</li>
-          <li><strong>Hidden (Game Sheets, p. 3):</strong> Rolls against them have disadvantage; ends on attack or if spotted.</li>
-          <li><strong>Temporary (SRD, p. 45):</strong> Conditions like Cloaked (Rogue: unseen if stationary) or Unstoppable (Guardian: reduce damage, add die, no Restrained/Vulnerable); end on triggers.</li>
+          <li><strong>Vulnerable:</strong> All rolls against them have advantage.</li>
+          <li><strong>Restrained:</strong> Can't move, but can take actions from current position.</li>
+          <li><strong>Hidden:</strong> Rolls against them have disadvantage; ends after an adversary moves to where they would see you, you move into their line of sight, or you make an attack.</li>
+          <li><strong>Temporary:</strong> Conditions like Cloaked (Rogue: unseen if stationary even in line of sight; ends on attack/move in sight) or Unstoppable (Guardian: reduce damage, add die, no Restrained/Vulnerable); end on triggers.</li>
         </ul>
       </div>
       <div id="death-moves-panel" class="toggle-panel">
@@ -216,16 +216,16 @@
           <h2>Death Moves (Blaze of Glory, Avoid Death, Risk It All)</h2>
         </div>
         <ul>
-          <li><strong>Blaze of Glory (SRD, p. 46):</strong> Critical success on final action, then permanent death.</li>
-          <li><strong>Avoid Death (SRD, p. 46):</strong> Lose 1 Hope permanently, survive with 1 HP.</li>
-          <li><strong>Risk It All (SRD, p. 46):</strong> Roll Duality Dice; success = survive with 1 HP, failure = permanent death. On critical success, survive with 1 HP, gain 1 Hope, clear 1 Stress.</li>
+          <li><strong>Blaze of Glory:</strong> Critical success on final action, then permanent death.</li>
+          <li><strong>Avoid Death:</strong> Lose 1 Hope permanently, survive with 1 HP.</li>
+          <li><strong>Risk It All:</strong> Roll Duality Dice; success = survive with 1 HP, failure = permanent death. On critical success, survive with 1 HP, gain 1 Hope, clear 1 Stress.</li>
         </ul>
       </div>
       <div id="adversaries-panel" class="toggle-panel">
         <div class="drawer-header">
           <h2>Adversaries (Types, Improvising Table)</h2>
         </div>
-        <p><strong>Adversary Types (SRD, p. 74):</strong> Minions (low HP, simple), Standard (balanced, abilities), Elite (high HP, Fear features), Boss (multi-phase, countdowns).</p>
+        <p><strong>Adversary Types:</strong> Minions (low HP, simple), Standard (balanced, abilities), Elite (high HP, Fear features), Boss (multi-phase, countdowns).</p>
         <table>
           <tr><th>Improvising Adversaries</th><th>HP</th><th>Attack Mod</th><th>Difficulty</th><th class="feature-column">Features</th></tr>
           <tr><td>Minion</td><td>4-6</td><td>+3</td><td>10</td><td>Basic attack, swarm if grouped.</td></tr>
@@ -233,13 +233,13 @@
           <tr><td>Elite</td><td>20-30</td><td>+5</td><td>20</td><td>Fear ability, multi-action.</td></tr>
           <tr><td>Boss</td><td>40+</td><td>+6</td><td>25</td><td>Phases, countdowns, legendary actions.</td></tr>
         </table>
-        <p><strong>Notes:</strong> Use d20 + mod vs. PC Evasion. Actions auto-succeed unless PC interferes. Spotlight for attacks/moves (Game Sheets, p. 1).</p>
+        <p><strong>Notes:</strong> Use d20 + mod vs. PC Evasion. Actions auto-succeed unless PC interferes. Spotlight for attacks/moves.</p>
       </div>
       <div id="environments-panel" class="toggle-panel">
         <div class="drawer-header">
           <h2>Environments (Statistics by Tier)</h2>
         </div>
-        <p><strong>Environment Types (SRD, p. 74):</strong> Environments are dynamic hazards in combat, scaled by tier to match party level. Use the table to adjust stats for Minion (Tier 1), Standard (Tier 2), Elite (Tier 3), or Boss (Tier 4) environments.</p>
+        <p><strong>Environment Types:</strong> Environments are dynamic hazards in combat, scaled by tier to match party level. Use the table to adjust stats for Minion (Tier 1), Standard (Tier 2), Elite (Tier 3), or Boss (Tier 4) environments.</p>
         <table>
           <tr><th>Tier</th><th>HP</th><th>Attack Mod</th><th>Difficulty</th><th class="feature-column">Features</th></tr>
           <tr><td>Minion (Tier 1)</td><td>4-6</td><td>+3</td><td>10</td><td>Minor hazard (e.g., slippery floor, light fog).</td></tr>
@@ -247,20 +247,20 @@
           <tr><td>Elite (Tier 3)</td><td>20-30</td><td>+5</td><td>20</td><td>Fear ability (e.g., choking ash, tremors).</td></tr>
           <tr><td>Boss (Tier 4)</td><td>40+</td><td>+6</td><td>25</td><td>Multi-phase effects, countdowns (e.g., collapsing cavern, volcanic eruption).</td></tr>
         </table>
-        <p><strong>Notes:</strong> Use d20 + mod vs. PC Evasion for environmental attacks. Adjust stats using this table to match party tier (SRD, p. 74). Features may trigger on GM moves or Fear expenditure. Examples include movement penalties, direct damage, or conditions like Vulnerable.</p>
+        <p><strong>Notes:</strong> Use d20 + mod vs. PC Evasion for environmental attacks. Adjust stats using this table to match party tier. Features may trigger on GM moves or Fear expenditure. Examples include movement penalties, direct damage, or conditions like Vulnerable.</p>
       </div>
       <div id="hope-fear-panel" class="toggle-panel">
         <div class="drawer-header">
           <h2>Hope/Fear (Uses)</h2>
         </div>
-        <h3>Hope Uses (Game Sheets, p. 1)</h3>
+        <h3>Hope Uses</h3>
         <ul>
           <li>Help Ally (+d6 advantage).</li>
           <li>Utilize Experience (+2).</li>
           <li>Initiate Tag Team Roll (3 Hope).</li>
           <li>Activate Hope Feature.</li>
         </ul>
-        <h3>Fear Uses (Game Sheets, p. 1)</h3>
+        <h3>Fear Uses</h3>
         <ul>
           <li>Interrupt action with twist.</li>
           <li>Extra GM move.</li>
@@ -270,7 +270,7 @@
       </div>
       <div id="weapons-panel" class="toggle-panel">
         <div class="drawer-header">
-          <h2>Weapons Table (Game Sheets, p. 5)</h2>
+          <h2>Weapons Table</h2>
         </div>
         <table>
           <tr><th>Name</th><th>Trait</th><th>Range</th><th>Damage</th><th>Burden</th><th class="feature-column">Feature</th></tr>
@@ -304,7 +304,7 @@
       </div>
       <div id="spells-panel" class="toggle-panel">
         <div class="drawer-header">
-          <h2>Spells & Features (Game Sheets, p. 9-15)</h2>
+          <h2>Spells & Features</h2>
         </div>
         <table>
           <tr><th>Name</th><th>Domain/Type</th><th>Recall</th><th class="feature-column">Feature</th></tr>
