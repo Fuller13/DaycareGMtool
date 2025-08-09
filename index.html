@@ -23,6 +23,7 @@
       <button class="toggle-button" onclick="togglePanel('conditions-panel')">Conditions (Vulnerable, Restrained, Hidden, Temporary)</button>
       <button class="toggle-button" onclick="togglePanel('death-moves-panel')">Death Moves (Blaze of Glory, Avoid Death, Risk It All)</button>
       <button class="toggle-button" onclick="togglePanel('adversaries-panel')">Adversaries (Types, Improvising Table)</button>
+      <button class="toggle-button" onclick="togglePanel('environments-panel')">Environments (Statistics by Tier)</button>
       <button class="toggle-button" onclick="togglePanel('hope-fear-panel')">Hope/Fear (Uses)</button>
       <button class="toggle-button" onclick="togglePanel('weapons-panel')">Weapons Table</button>
       <button class="toggle-button" onclick="togglePanel('spells-panel')">Spells & Features</button>
@@ -233,6 +234,20 @@
           <tr><td>Boss</td><td>40+</td><td>+6</td><td>25</td><td>Phases, countdowns, legendary actions.</td></tr>
         </table>
         <p><strong>Notes:</strong> Use d20 + mod vs. PC Evasion. Actions auto-succeed unless PC interferes. Spotlight for attacks/moves (Game Sheets, p. 1).</p>
+      </div>
+      <div id="environments-panel" class="toggle-panel">
+        <div class="drawer-header">
+          <h2>Environments (Statistics by Tier)</h2>
+        </div>
+        <p><strong>Environment Types (SRD, p. 74):</strong> Environments are dynamic hazards in combat, scaled by tier to match party level. Use the table to adjust stats for Minion (Tier 1), Standard (Tier 2), Elite (Tier 3), or Boss (Tier 4) environments.</p>
+        <table>
+          <tr><th>Tier</th><th>HP</th><th>Attack Mod</th><th>Difficulty</th><th class="feature-column">Features</th></tr>
+          <tr><td>Minion (Tier 1)</td><td>4-6</td><td>+3</td><td>10</td><td>Minor hazard (e.g., slippery floor, light fog).</td></tr>
+          <tr><td>Standard (Tier 2)</td><td>10-15</td><td>+4</td><td>15</td><td>1-2 effects (e.g., falling debris, gusting winds).</td></tr>
+          <tr><td>Elite (Tier 3)</td><td>20-30</td><td>+5</td><td>20</td><td>Fear ability (e.g., choking ash, tremors).</td></tr>
+          <tr><td>Boss (Tier 4)</td><td>40+</td><td>+6</td><td>25</td><td>Multi-phase effects, countdowns (e.g., collapsing cavern, volcanic eruption).</td></tr>
+        </table>
+        <p><strong>Notes:</strong> Use d20 + mod vs. PC Evasion for environmental attacks. Adjust stats using this table to match party tier (SRD, p. 74). Features may trigger on GM moves or Fear expenditure. Examples include movement penalties, direct damage, or conditions like Vulnerable.</p>
       </div>
       <div id="hope-fear-panel" class="toggle-panel">
         <div class="drawer-header">
