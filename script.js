@@ -11,8 +11,8 @@ function loadInputs() {
 // Hope/Fear Counters
 let hopeCount = 0, fearCount = 0;
 function incrementCounter(type) {
-  if (type === 'hope' && hopeCount < 50) hopeCount++;
-  if (type === 'fear' && fearCount < 120) fearCount++;
+  if (type === 'hope' && hopeCount < 5) hopeCount++;
+  if (type === 'fear' && fearCount < 12) fearCount++;
   updateCounterDisplay(type);
   localStorage.setItem(`${type}Count`, type === 'hope' ? hopeCount : fearCount);
 }
@@ -30,6 +30,37 @@ function loadCounters() {
   fearCount = parseInt(localStorage.getItem('fearCount') || 0);
   updateCounterDisplay('hope');
   updateCounterDisplay('fear');
+}
+// Tally Counter
+let tallyCount = 0;
+function incrementTally() {
+  tallyCount++;
+  updateTallyDisplay();
+  localStorage.setItem('tallyCount', tallyCount);
+}
+function decrementTally() {
+  if (tallyCount > 0) tallyCount--;
+  updateTallyDisplay();
+  localStorage.setItem('tallyCount', tallyCount);
+}
+function updateTallyDisplay() {
+  document.getElementById('tally-count').textContent = tallyCount;
+}
+function loadTally() {
+  tallyCount = parseInt(localStorage.getItem('tallyCount') || 0);
+  updateTallyDisplay();
+}
+// Abacus Slider
+function saveAbacus(element) {
+  localStorage.setItem('abacusValue', element.value);
+  document.getElementById('abacus-value').textContent = element.value;
+}
+function loadAbacus() {
+  const saved = localStorage.getItem('abacusValue');
+  if (saved !== null) {
+    document.getElementById('abacus-slider').value = saved;
+    document.getElementById('abacus-value').textContent = saved;
+  }
 }
 // Dice Roller
 function rollDualityDice() {
@@ -180,5 +211,7 @@ window.onload = () => {
   document.getElementById('disclaimer').style.display = 'block';
   loadInputs();
   loadCounters();
+  loadTally();
+  loadAbacus();
   loadAdversaries();
 };
