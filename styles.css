@@ -129,6 +129,11 @@ body {
   margin: 0 0 10px 0;
   font-size: 18px;
 }
+.core-panel h3 {
+  color: var(--dh-color-mustard);
+  margin: 10px 0 5px 0;
+  font-size: 16px;
+}
 .toggle-panel {
   display: none;
   position: fixed;
@@ -184,6 +189,54 @@ body {
 }
 .counter button:hover, .dice-roller button:hover, .timer button:hover {
   background-color: var(--top-nav-button-hover-color);
+}
+.counter-section {
+  margin-bottom: 15px;
+}
+.counter-section h3 {
+  margin-bottom: 8px;
+}
+.abacus-slider-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+#abacus-slider {
+  width: 200px;
+}
+#abacus-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: var(--dh-color-blue);
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid #ffffff;
+}
+#abacus-slider::-webkit-slider-thumb:hover {
+  background: var(--dh-color-gold);
+}
+#abacus-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: var(--dh-color-blue);
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid #ffffff;
+}
+#abacus-slider::-moz-range-thumb:hover {
+  background: var(--dh-color-gold);
+}
+#abacus-slider::-webkit-slider-runnable-track {
+  background: #5a5a6a;
+  height: 8px;
+  border-radius: 4px;
+}
+#abacus-slider::-moz-range-track {
+  background: #5a5a6a;
+  height: 8px;
+  border-radius: 4px;
 }
 .adversary {
   background-color: #4a4a5a;
